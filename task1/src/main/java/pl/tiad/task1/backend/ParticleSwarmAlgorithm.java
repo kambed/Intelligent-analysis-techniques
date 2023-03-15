@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.IntStream;
 
 public class ParticleSwarmAlgorithm {
     private final int numOfParticles;
@@ -12,15 +13,17 @@ public class ParticleSwarmAlgorithm {
     private final List<Integer> iterations = new ArrayList<>();
     private final List<Double> avgPopulationValues = new ArrayList<>();
     private final List<Double> minPopulationValues = new ArrayList<>();
+    private final int dimensions;
 
-    public ParticleSwarmAlgorithm(int numOfIterations, int numOfParticles, double maxX, double minX, double maxY, double minY,
-                                  String function, double inertion, double cognition, double social) {
+    public ParticleSwarmAlgorithm(int numOfIterations, int numOfParticles, double maxX, double minX, int dimensions,
+                                  double inertion, double cognition, double social) {
         this.numOfParticles = numOfParticles;
         this.numOfIterations = numOfIterations;
+        this.dimensions = dimensions;
         double bestAdaptation = Double.MAX_VALUE;
         Particle bestParticle = null;
         for (int i = 0; i < numOfParticles; i++) {
-            Particle p = new Particle(maxX, maxY, minX, minY, function, inertion, cognition, social);
+            Particle p = new Particle(maxX, minX, dimensions, inertion, cognition, social);
             particles.add(p);
             if (p.getAdaptation() < bestAdaptation) {
                 bestAdaptation = p.getAdaptation();
@@ -28,15 +31,16 @@ public class ParticleSwarmAlgorithm {
             }
         }
         for (Particle p : particles) {
-            p.setBestXInSwarm(bestParticle.getX());
-            p.setBestYInSwarm(bestParticle.getY());
+            Particle finalBestParticle = bestParticle;
+            IntStream.range(0, dimensions)
+                    .forEach(i -> p.setBestXInSwarm(i, finalBestParticle.getPos(i)));
         }
     }
 
-    public Map<String,Double> start() {
+    public Map<String, Double> start() {
         double globalBestAdaptation = Double.MAX_VALUE;
-        double globalBestX = -1;
-        double globalBestY = -1;
+        List<Double> globalBest = new ArrayList<>();
+        IntStream.range(0, dimensions).forEach(i -> globalBest.add(-1.0));
         for (int i = 0; i < numOfIterations; i++) {
             double bestAdaptation = Double.MAX_VALUE;
             Particle bestParticle = null;
@@ -49,22 +53,25 @@ public class ParticleSwarmAlgorithm {
                 }
                 if (p.getAdaptation() < globalBestAdaptation) {
                     globalBestAdaptation = p.getAdaptation();
-                    globalBestX = p.getX();
-                    globalBestY = p.getY();
+                    IntStream.range(0, dimensions)
+                            .forEach(index -> {
+                                globalBest.set(index, p.getPos(index));
+                            });
                 }
                 avgAdaptation += p.getAdaptation();
             }
             for (Particle p : particles) {
-                p.setBestXInSwarm(bestParticle.getX());
-                p.setBestYInSwarm(bestParticle.getY());
+                Particle finalBestParticle = bestParticle;
+                IntStream.range(0, dimensions)
+                        .forEach(index -> p.setBestXInSwarm(index, finalBestParticle.getPos(index)));
             }
             iterations.add(i + 1);
             minPopulationValues.add(bestAdaptation);
             avgPopulationValues.add(avgAdaptation / numOfParticles);
         }
         Map<String, Double> bestResults = new HashMap<>();
-        bestResults.put("X", globalBestX);
-        bestResults.put("Y", globalBestY);
+        IntStream.range(0, dimensions)
+                .forEach(index -> bestResults.put("X" + index, globalBest.get(index)));
         bestResults.put("Adaptation", globalBestAdaptation);
         return bestResults;
     }
