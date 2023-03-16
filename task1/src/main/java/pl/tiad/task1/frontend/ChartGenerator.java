@@ -12,6 +12,9 @@ import org.jfree.data.xy.XYSeriesCollection;
 import java.awt.*;
 
 public class ChartGenerator {
+    private ChartGenerator() {
+    }
+
     public static JFreeChart generatePlot(Integer[] x, Double[] y, String name) {
         XYSeries functionSeries = new XYSeries(name);
         for (int i = 0; i < x.length; i++) {

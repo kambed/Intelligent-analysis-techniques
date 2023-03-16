@@ -7,11 +7,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import org.jfree.chart.ChartUtilities;
-import pl.tiad.task1.backend.de.DifferentialEvolutionAlgorithm;
 import pl.tiad.task1.backend.utils.FunctionType;
 import pl.tiad.task1.backend.utils.AccuracyStop;
 import pl.tiad.task1.backend.pso.ParticleSwarmAlgorithm;
-import pl.tiad.task1.backend.utils.IterationStop;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -57,7 +55,7 @@ public class MainFormController {
         if (!stringPath.isBlank()) {
             Files.write(Paths.get(stringPath), consoleArea.getText().getBytes());
             consoleArea.setText("");
-            consoleArea.appendText("Logs saved saved to: %s\n".formatted(stringPath));
+            consoleArea.appendText("Logs saved saved to: %s%n".formatted(stringPath));
         }
     }
 
