@@ -55,7 +55,7 @@ public class Individual {
     public void selection() {
         if (functionType.getFunction().apply(pos) > functionType.getFunction().apply(posMutant)) {
             IntStream.range(0, pos.size())
-                    .forEach(index -> pos.set(index, posMutant.get(index)));
+                    .forEach(index -> pos.set(index, posTrial.get(index)));
         }
     }
 }

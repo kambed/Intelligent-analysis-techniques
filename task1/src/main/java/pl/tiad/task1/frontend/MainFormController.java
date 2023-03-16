@@ -62,15 +62,11 @@ public class MainFormController {
     }
 
     public void start() {
-//        ParticleSwarmAlgorithm psa = new ParticleSwarmAlgorithm(new AccuracyStop(0.1),
-//                FunctionType.SPHERE,
-//                Integer.parseInt(amountOfParticles.getText()),
-//                Double.parseDouble(maxx.getText()), Double.parseDouble(minx.getText()),
-//                Integer.parseInt(maxy.getText()), Double.parseDouble(inertion.getText()),
-//                Double.parseDouble(cognition.getText()), Double.parseDouble(social.getText()));
-        DifferentialEvolutionAlgorithm psa = new DifferentialEvolutionAlgorithm(
-                new IterationStop(10000), FunctionType.SPHERE, 600, 100, -100,
-                30, 0.5, 0.5);
+        ParticleSwarmAlgorithm psa = new ParticleSwarmAlgorithm(new AccuracyStop(0.1), FunctionType.SPHERE,
+                1000, 100, -100, 30, 0.9, 0.8, 0.7);
+//        DifferentialEvolutionAlgorithm psa = new DifferentialEvolutionAlgorithm(
+//                new IterationStop(10000), FunctionType.SPHERE, 600, 100, -100,
+//                30, 0.5, 0.8);
         Map<String, Double> extremum = psa.start();
         consoleArea.appendText("Lowest value in function: " + extremum.get("Adaptation") + "\n");
         int i = 0;
