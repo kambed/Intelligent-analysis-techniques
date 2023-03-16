@@ -1,6 +1,6 @@
 package pl.tiad.task1.backend.pso;
 
-import pl.tiad.task1.backend.FunctionEvaluator;
+import pl.tiad.task1.backend.utils.FunctionType;
 
 import java.util.*;
 import java.util.stream.IntStream;
@@ -18,10 +18,12 @@ public class Particle {
     private final double cognition;
     private final double social;
     private final int dimensions;
+    private final FunctionType functionType;
     private final Random r = new Random();
 
-    public Particle(double maxX, double minX, int dimensions,
+    public Particle(FunctionType functionType, double maxX, double minX, int dimensions,
                     double inertion, double cognition, double social) {
+        this.functionType = functionType;
         this.maxX = maxX;
         this.minX = minX;
         IntStream.range(0, dimensions).forEach(
@@ -41,7 +43,7 @@ public class Particle {
     }
 
     public double calculateAdaptation() {
-        adaptation = FunctionEvaluator.calculate(pos);
+        adaptation = functionType.getFunction().apply(pos);
         if (adaptation < bestAdaptation) {
             bestAdaptation = adaptation;
             IntStream.range(0, dimensions)

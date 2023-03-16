@@ -1,8 +1,9 @@
 package pl.tiad.task1.backend.pso;
 
-import pl.tiad.task1.backend.stoptype.AccuracyStop;
-import pl.tiad.task1.backend.stoptype.IterationStop;
-import pl.tiad.task1.backend.stoptype.StopType;
+import pl.tiad.task1.backend.utils.FunctionType;
+import pl.tiad.task1.backend.utils.AccuracyStop;
+import pl.tiad.task1.backend.utils.IterationStop;
+import pl.tiad.task1.backend.utils.StopType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,15 +23,15 @@ public class ParticleSwarmAlgorithm {
     private double globalBestAdaptation = Double.MAX_VALUE;
     private final List<Double> globalBest = new ArrayList<>();
 
-    public ParticleSwarmAlgorithm(StopType stopType, int numOfParticles, double maxX, double minX, int dimensions,
-                                  double inertion, double cognition, double social) {
+    public ParticleSwarmAlgorithm(StopType stopType, FunctionType functionType, int numOfParticles, double maxX,
+                                  double minX, int dimensions, double inertion, double cognition, double social) {
         this.numOfParticles = numOfParticles;
         this.stopType = stopType;
         this.dimensions = dimensions;
         double bestAdaptation = Double.MAX_VALUE;
         Particle bestParticle = null;
         for (int i = 0; i < numOfParticles; i++) {
-            Particle p = new Particle(maxX, minX, dimensions, inertion, cognition, social);
+            Particle p = new Particle(functionType, maxX, minX, dimensions, inertion, cognition, social);
             particles.add(p);
             if (p.getAdaptation() < bestAdaptation) {
                 bestAdaptation = p.getAdaptation();

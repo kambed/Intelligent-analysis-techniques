@@ -1,4 +1,4 @@
-package pl.tiad.task1.backend.stoptype;
+package pl.tiad.task1.backend.utils;
 
 public class IterationStop implements StopType {
 
