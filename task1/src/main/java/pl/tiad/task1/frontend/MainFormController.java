@@ -7,7 +7,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import org.jfree.chart.ChartUtilities;
-import pl.tiad.task1.backend.ParticleSwarmAlgorithm;
+import pl.tiad.task1.backend.utils.FunctionType;
+import pl.tiad.task1.backend.utils.AccuracyStop;
+import pl.tiad.task1.backend.pso.ParticleSwarmAlgorithm;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -58,16 +60,19 @@ public class MainFormController {
     }
 
     public void start() {
-        ParticleSwarmAlgorithm psa = new ParticleSwarmAlgorithm(Integer.parseInt(amountOfIterations.getText()),
+        ParticleSwarmAlgorithm psa = new ParticleSwarmAlgorithm(new AccuracyStop(0.1),
+                FunctionType.SPHERE,
                 Integer.parseInt(amountOfParticles.getText()),
                 Double.parseDouble(maxx.getText()), Double.parseDouble(minx.getText()),
-                Double.parseDouble(maxy.getText()), Double.parseDouble(miny.getText()), function.getText(),
-                Double.parseDouble(inertion.getText()), Double.parseDouble(cognition.getText()), Double.parseDouble(social.getText()));
+                Integer.parseInt(maxy.getText()), Double.parseDouble(inertion.getText()),
+                Double.parseDouble(cognition.getText()), Double.parseDouble(social.getText()));
         Map<String, Double> extremum = psa.start();
         consoleArea.appendText("Lowest value in function: " + extremum.get("Adaptation") + "\n");
-        consoleArea.appendText("X: " + extremum.get("X") + "\n");
-        consoleArea.appendText("Y: " + extremum.get("Y") + "\n");
-
+        int i = 0;
+        do {
+            consoleArea.appendText("X" + (i + 1) + ": " + extremum.get("X" + i) + "\n");
+            i++;
+        } while (extremum.get("X" + i) != null);
         try {
             ChartUtilities.saveChartAsPNG(
                     new File("chart.png"),
