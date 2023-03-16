@@ -7,9 +7,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import org.jfree.chart.ChartUtilities;
+import pl.tiad.task1.backend.de.DifferentialEvolutionAlgorithm;
 import pl.tiad.task1.backend.utils.FunctionType;
 import pl.tiad.task1.backend.utils.AccuracyStop;
 import pl.tiad.task1.backend.pso.ParticleSwarmAlgorithm;
+import pl.tiad.task1.backend.utils.IterationStop;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -60,12 +62,15 @@ public class MainFormController {
     }
 
     public void start() {
-        ParticleSwarmAlgorithm psa = new ParticleSwarmAlgorithm(new AccuracyStop(0.1),
-                FunctionType.SPHERE,
-                Integer.parseInt(amountOfParticles.getText()),
-                Double.parseDouble(maxx.getText()), Double.parseDouble(minx.getText()),
-                Integer.parseInt(maxy.getText()), Double.parseDouble(inertion.getText()),
-                Double.parseDouble(cognition.getText()), Double.parseDouble(social.getText()));
+//        ParticleSwarmAlgorithm psa = new ParticleSwarmAlgorithm(new AccuracyStop(0.1),
+//                FunctionType.SPHERE,
+//                Integer.parseInt(amountOfParticles.getText()),
+//                Double.parseDouble(maxx.getText()), Double.parseDouble(minx.getText()),
+//                Integer.parseInt(maxy.getText()), Double.parseDouble(inertion.getText()),
+//                Double.parseDouble(cognition.getText()), Double.parseDouble(social.getText()));
+        DifferentialEvolutionAlgorithm psa = new DifferentialEvolutionAlgorithm(
+                new IterationStop(10000), FunctionType.SPHERE, 600, 100, -100,
+                30, 0.5, 0.5);
         Map<String, Double> extremum = psa.start();
         consoleArea.appendText("Lowest value in function: " + extremum.get("Adaptation") + "\n");
         int i = 0;
