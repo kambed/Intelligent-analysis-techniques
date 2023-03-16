@@ -1,4 +1,6 @@
-package pl.tiad.task1.backend;
+package pl.tiad.task1.backend.pso;
+
+import pl.tiad.task1.backend.FunctionEvaluator;
 
 import java.util.*;
 import java.util.stream.IntStream;
@@ -27,6 +29,7 @@ public class Particle {
                     pos.add(r.nextDouble(maxX - minX) + minX);
                     speed.add(0.0);
                     bestPos.add(pos.get(i));
+                    bestPosInSwarm.add(pos.get(i));
                 }
         );
         this.dimensions = dimensions;
@@ -81,7 +84,7 @@ public class Particle {
     }
 
     public void setBestXInSwarm(int index, double bestXInSwarm) {
-        this.bestPosInSwarm.add(index, bestXInSwarm);
+        this.bestPosInSwarm.set(index, bestXInSwarm);
     }
 
     public double getInertion() {

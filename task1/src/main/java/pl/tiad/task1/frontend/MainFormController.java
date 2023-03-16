@@ -7,7 +7,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import org.jfree.chart.ChartUtilities;
-import pl.tiad.task1.backend.ParticleSwarmAlgorithm;
+import pl.tiad.task1.backend.stoptype.AccuracyStop;
+import pl.tiad.task1.backend.stoptype.IterationStop;
+import pl.tiad.task1.backend.pso.ParticleSwarmAlgorithm;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -58,7 +60,7 @@ public class MainFormController {
     }
 
     public void start() {
-        ParticleSwarmAlgorithm psa = new ParticleSwarmAlgorithm(Integer.parseInt(amountOfIterations.getText()),
+        ParticleSwarmAlgorithm psa = new ParticleSwarmAlgorithm(new AccuracyStop(0.1),
                 Integer.parseInt(amountOfParticles.getText()),
                 Double.parseDouble(maxx.getText()), Double.parseDouble(minx.getText()),
                 Integer.parseInt(maxy.getText()), Double.parseDouble(inertion.getText()),
