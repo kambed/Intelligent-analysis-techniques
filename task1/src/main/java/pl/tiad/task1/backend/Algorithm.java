@@ -15,6 +15,10 @@ public abstract class Algorithm {
     protected StopType stopType;
     protected double globalBestAdaptation = Double.MAX_VALUE;
     protected final List<Double> globalBest = new ArrayList<>();
+    protected final List<Integer> iterations = new ArrayList<>();
+    protected final List<Double> avgPopulationValues = new ArrayList<>();
+    protected final List<Double> minPopulationValues = new ArrayList<>();
+
     private final DoublePredicate function = value -> {
         if (stopType instanceof IterationStop) {
             return value < stopType.getNumber();
@@ -39,4 +43,16 @@ public abstract class Algorithm {
     }
 
     protected abstract void algorithmStep(int i);
+
+    public List<Integer> getIterations() {
+        return iterations;
+    }
+
+    public List<Double> getAvgPopulationValues() {
+        return avgPopulationValues;
+    }
+
+    public List<Double> getMinPopulationValues() {
+        return minPopulationValues;
+    }
 }

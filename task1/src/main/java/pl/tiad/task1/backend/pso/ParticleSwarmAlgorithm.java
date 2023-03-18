@@ -11,9 +11,6 @@ import java.util.stream.IntStream;
 public class ParticleSwarmAlgorithm extends Algorithm {
     private final int numOfParticles;
     private final List<Particle> particles = new ArrayList<>();
-    private final List<Integer> iterations = new ArrayList<>();
-    private final List<Double> avgPopulationValues = new ArrayList<>();
-    private final List<Double> minPopulationValues = new ArrayList<>();
 
     public ParticleSwarmAlgorithm(StopType stopType, FunctionType functionType, int numOfParticles, double maxX,
                                   double minX, int dimensions, double inertion, double cognition, double social) {
@@ -62,17 +59,5 @@ public class ParticleSwarmAlgorithm extends Algorithm {
         iterations.add(i + 1);
         minPopulationValues.add(bestAdaptation);
         avgPopulationValues.add(avgAdaptation / numOfParticles);
-    }
-
-    public List<Integer> getIterations() {
-        return iterations;
-    }
-
-    public List<Double> getAvgPopulationValues() {
-        return avgPopulationValues;
-    }
-
-    public List<Double> getMinPopulationValues() {
-        return minPopulationValues;
     }
 }

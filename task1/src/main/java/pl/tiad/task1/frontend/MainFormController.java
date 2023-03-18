@@ -5,7 +5,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
+import org.jfree.chart.ChartUtilities;
+import pl.tiad.task1.backend.Algorithm;
 import pl.tiad.task1.backend.de.DifferentialEvolutionAlgorithm;
 import pl.tiad.task1.backend.pso.ParticleSwarmAlgorithm;
 import pl.tiad.task1.backend.utils.AccuracyStop;
@@ -13,6 +17,9 @@ import pl.tiad.task1.backend.utils.FunctionType;
 import pl.tiad.task1.backend.utils.IterationStop;
 import pl.tiad.task1.backend.utils.StopType;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -26,9 +33,13 @@ public class MainFormController implements Initializable {
     @FXML
     public TextField stopValueTextField;
     @FXML
-    public ImageView chart;
+    public ImageView psoChart1;
     @FXML
-    public ImageView chart2;
+    public ImageView psoChart2;
+    @FXML
+    public ImageView deaChart1;
+    @FXML
+    public ImageView deaChart2;
     @FXML
     public ComboBox<FunctionType> functionComboBox;
     @FXML
@@ -55,6 +66,8 @@ public class MainFormController implements Initializable {
     );
     @FXML
     public TextArea consoleArea;
+    @FXML
+    public VBox resultSection;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -63,10 +76,84 @@ public class MainFormController implements Initializable {
     }
 
     public void start() {
-//        ParticleSwarmAlgorithm psa = new ParticleSwarmAlgorithm(new AccuracyStop(0.1), FunctionType.SPHERE,
-//                1000, 100, -100, 30, 0.9, 0.8, 0.7);
-//        DifferentialEvolutionAlgorithm psa = new DifferentialEvolutionAlgorithm(
-//                new IterationStop(10000), FunctionType.SPHERE, 600, 100, -100,
-//                30, 0.5, 0.8);
+        start(createParticleSwarmAlgorithm(), psoChart1, psoChart2);
+        start(createDifferentialEvolutionAlgorithm(), deaChart1, deaChart2);
+        resultSection.setVisible(true);
+    }
+
+    private void start(Algorithm algorithm, ImageView populationAvgChart, ImageView populationMinChart) {
+        String algorithmName = algorithm.getClass().getSimpleName();
+        Map<String, Double> extremum = algorithm.start();
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("\n")
+                .append(algorithmName)
+                .append(" finished with results:\n");
+        stringBuilder.append("Lowest value in function: ")
+                .append(extremum.get("Adaptation"))
+                .append("\n");
+        int i = 0;
+        do {
+            stringBuilder.append("X")
+                    .append(i + 1)
+                    .append(": ")
+                    .append(extremum.get("X" + i))
+                    .append("\n");
+            i++;
+        } while (extremum.get("X" + i) != null);
+        consoleArea.appendText(stringBuilder.toString());
+        try {
+            ChartUtilities.saveChartAsPNG(
+                    new File(populationAvgChart.getId() + ".png"),
+                    ChartGenerator.generatePlot(
+                            algorithm.getIterations().toArray(new Integer[0]),
+                            algorithm.getAvgPopulationValues().toArray(new Double[0]),
+                            "average population value"
+                    ),
+                    400,
+                    250
+            );
+            populationAvgChart.setImage(new Image(new FileInputStream(populationAvgChart.getId() + ".png")));
+
+            ChartUtilities.saveChartAsPNG(
+                    new File(populationMinChart.getId() + ".png"),
+                    ChartGenerator.generatePlot(
+                            algorithm.getIterations().toArray(new Integer[0]),
+                            algorithm.getMinPopulationValues().toArray(new Double[0]),
+                            " minimum population value"
+                    ),
+                    400,
+                    250
+            );
+            populationMinChart.setImage(new Image(new FileInputStream(populationMinChart.getId() + ".png")));
+        } catch (IOException e) {
+            consoleArea.appendText("Error while generation " + algorithm.getClass().getSimpleName() + " charts. \n");
+        }
+    }
+
+    private ParticleSwarmAlgorithm createParticleSwarmAlgorithm() {
+        return new ParticleSwarmAlgorithm(
+                stopTypeMap.get(stopConditionComboBox.getValue()).apply(Double.parseDouble(stopValueTextField.getText())),
+                functionComboBox.getValue(),
+                Integer.parseInt(numberOfIndividualsParticlesTextField.getText()),
+                Double.parseDouble(maxXToTextField.getText()),
+                Double.parseDouble(minXTextField.getText()),
+                Integer.parseInt(dimensionsTextField.getText()),
+                Double.parseDouble(amplificationFactorTextField.getText()),
+                Double.parseDouble(cognitionTextField.getText()),
+                Double.parseDouble(socialTextField.getText())
+        );
+    }
+
+    private DifferentialEvolutionAlgorithm createDifferentialEvolutionAlgorithm() {
+        return new DifferentialEvolutionAlgorithm(
+                stopTypeMap.get(stopConditionComboBox.getValue()).apply(Double.parseDouble(stopValueTextField.getText())),
+                functionComboBox.getValue(),
+                Integer.parseInt(numberOfIndividualsParticlesTextField.getText()),
+                Double.parseDouble(maxXToTextField.getText()),
+                Double.parseDouble(minXTextField.getText()),
+                Integer.parseInt(dimensionsTextField.getText()),
+                Double.parseDouble(amplificationFactorTextField.getText()),
+                Double.parseDouble(crossoverProbabilityTextField.getText())
+        );
     }
 }
