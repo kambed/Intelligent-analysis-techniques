@@ -3,8 +3,11 @@ package pl.tiad.task1.frontend;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import pl.tiad.task1.backend.de.DifferentialEvolutionAlgorithm;
+import pl.tiad.task1.backend.pso.ParticleSwarmAlgorithm;
 import pl.tiad.task1.backend.utils.AccuracyStop;
 import pl.tiad.task1.backend.utils.FunctionType;
 import pl.tiad.task1.backend.utils.IterationStop;
@@ -50,6 +53,8 @@ public class MainFormController implements Initializable {
             "Accuracy", AccuracyStop::new,
             "Iteration", number -> new IterationStop(number.intValue())
     );
+    @FXML
+    public TextArea consoleArea;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

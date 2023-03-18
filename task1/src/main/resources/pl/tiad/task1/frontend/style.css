@@ -6,7 +6,17 @@
 }
 Label {
     -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(three-pass-box, black, 2, 0.5, 0, 0);
 }
-ComboBox, TextField {
+ComboBox, TextField, TextArea {
     -fx-max-width: Infinity;
+    -fx-opacity: 0.9;
+}
+
+.header {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(three-pass-box, black, 2, 0.5, 0, 0);
+    -fx-padding: 10px;
 }
