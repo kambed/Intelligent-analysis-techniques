@@ -10,6 +10,7 @@ import org.jfree.chart.ChartUtilities;
 import pl.tiad.task1.backend.utils.FunctionType;
 import pl.tiad.task1.backend.utils.AccuracyStop;
 import pl.tiad.task1.backend.pso.ParticleSwarmAlgorithm;
+import pl.tiad.task1.backend.utils.IterationStop;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -60,8 +61,10 @@ public class MainFormController {
     }
 
     public void start() {
-        ParticleSwarmAlgorithm psa = new ParticleSwarmAlgorithm(new AccuracyStop(0.1), FunctionType.SPHERE,
+        ParticleSwarmAlgorithm psa = new ParticleSwarmAlgorithm(new IterationStop(100), FunctionType.SPHERE,
                 1000, 100, -100, 30, 0.9, 0.8, 0.7);
+//        ParticleSwarmAlgorithm psa = new ParticleSwarmAlgorithm(new AccuracyStop(0.1), FunctionType.SPHERE,
+//                1000, 100, -100, 30, 0.9, 0.8, 0.7);
 //        DifferentialEvolutionAlgorithm psa = new DifferentialEvolutionAlgorithm(
 //                new IterationStop(10000), FunctionType.SPHERE, 600, 100, -100,
 //                30, 0.5, 0.8);

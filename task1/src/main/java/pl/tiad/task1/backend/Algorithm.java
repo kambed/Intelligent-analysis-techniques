@@ -1,6 +1,5 @@
 package pl.tiad.task1.backend;
 
-import pl.tiad.task1.backend.utils.AccuracyStop;
 import pl.tiad.task1.backend.utils.IterationStop;
 import pl.tiad.task1.backend.utils.StopType;
 
@@ -8,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.DoublePredicate;
 import java.util.stream.IntStream;
 
 public abstract class Algorithm {
@@ -15,20 +15,22 @@ public abstract class Algorithm {
     protected StopType stopType;
     protected double globalBestAdaptation = Double.MAX_VALUE;
     protected final List<Double> globalBest = new ArrayList<>();
+    private final DoublePredicate function = value -> {
+        if (stopType instanceof IterationStop) {
+            return value < stopType.getNumber();
+        }
+        return value > stopType.getNumber();
+    };
 
     public Map<String, Double> start() {
         IntStream.range(0, dimensions).forEach(i -> globalBest.add(-1.0));
-        if (stopType instanceof IterationStop) {
-            for (int i = 0; i < stopType.getNumber(); i++) {
-                algorithmStep(i);
-            }
-        } else if (stopType instanceof AccuracyStop) {
-            int i = 0;
-            do {
-                algorithmStep(i);
-                i++;
-            } while (globalBestAdaptation > stopType.getNumber());
-        }
+
+        int i = 0;
+        do {
+            algorithmStep(i);
+            i++;
+        } while (stopType instanceof IterationStop ? function.test(i) : function.test(globalBestAdaptation));
+
         Map<String, Double> bestResults = new HashMap<>();
         IntStream.range(0, dimensions)
                 .forEach(index -> bestResults.put("X" + index, globalBest.get(index)));
