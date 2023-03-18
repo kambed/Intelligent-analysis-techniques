@@ -1,8 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.Pane?>
-
-<Pane style="-fx-background-color: #000055;" xmlns="http://javafx.com/javafx/16"
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<VBox style="-fx-background-color: #000055;" xmlns="http://javafx.com/javafx/16"
       xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.tiad.task1.frontend.MainFormController">
+    <padding>
+        <Insets bottom="10" left="10" right="10" top="10"/>
+    </padding>
+    <GridPane hgap="10" vgap="10">
+        <Label text="Stop condition:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <ComboBox fx:id="stopConditionComboBox" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
 
-</Pane>
+        <Label text="Stop value:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <TextField fx:id="stopValueTextField" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+        <Label text="Function:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+        <ComboBox fx:id="functionComboBox" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+        <Label text="Number of individuals/particles:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+        <TextField fx:id="numberOfIndividualsParticlesTextField" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+        <Label text="X range:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+        <HBox spacing="10" GridPane.rowIndex="4" GridPane.columnIndex="1" alignment="BASELINE_CENTER">
+            <TextField fx:id="minXTextField"/>
+            <Label text="-"/>
+            <TextField fx:id="maxXToTextField"/>
+        </HBox>
+
+        <Label text="Dimensions:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+        <TextField fx:id="dimensionsTextField" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+
+
+        <Label text="Differential Evolution Algorithm specific fields:" GridPane.rowIndex="6" GridPane.columnIndex="0"
+               GridPane.columnSpan="2"/>
+
+        <Label text="Amplification factor:" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
+        <TextField fx:id="amplificationFactorTextField" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+
+        <Label text="Crossover probability:" GridPane.rowIndex="8" GridPane.columnIndex="0"/>
+        <TextField fx:id="crossoverProbabilityTextField" GridPane.rowIndex="8" GridPane.columnIndex="1"/>
+
+
+        <Label text="Particle Swarm Algorithm specific fields:" GridPane.rowIndex="9" GridPane.columnIndex="0"
+               GridPane.columnSpan="2"/>
+
+        <Label text="Intention" GridPane.rowIndex="10" GridPane.columnIndex="0"/>
+        <TextField fx:id="intentionTextField" GridPane.rowIndex="10" GridPane.columnIndex="1"/>
+
+        <Label text="Cognition" GridPane.rowIndex="11" GridPane.columnIndex="0"/>
+        <TextField fx:id="cognitionTextField" GridPane.rowIndex="11" GridPane.columnIndex="1"/>
+
+        <Label text="Social" GridPane.rowIndex="12" GridPane.columnIndex="0"/>
+        <TextField fx:id="socialTextField" GridPane.rowIndex="12" GridPane.columnIndex="1"/>
+    </GridPane>
+</VBox>

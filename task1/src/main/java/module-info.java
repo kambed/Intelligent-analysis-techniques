@@ -9,4 +9,5 @@ module pl.tiad.task1.frontend {
 
     opens pl.tiad.task1.frontend to javafx.fxml;
     exports pl.tiad.task1.frontend;
+    exports pl.tiad.task1.backend.utils;
 }

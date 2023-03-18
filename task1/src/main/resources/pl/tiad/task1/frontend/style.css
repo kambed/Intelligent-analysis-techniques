@@ -1,6 +1,12 @@
-.root{
+.root {
     -fx-background-image: url("background.jpg");
     -fx-background-repeat: no-repeat;
     -fx-background-position: center center;
     -fx-background-size: cover;
+}
+Label {
+    -fx-text-fill: white;
+}
+ComboBox, TextField {
+    -fx-max-width: Infinity;
 }
