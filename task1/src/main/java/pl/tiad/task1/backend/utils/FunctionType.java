@@ -7,7 +7,7 @@ import java.util.stream.IntStream;
 public enum FunctionType {
     SPHERE(
             (List<Double> positions) -> positions.stream()
-                    .mapToDouble(pos -> pos * pos)
+                    .mapToDouble(FunctionType::pow2)
                     .sum()
     ),
     F2(
@@ -17,7 +17,7 @@ public enum FunctionType {
     ),
     ROSENBROCK(
             (List<Double> positions) -> IntStream.range(0, positions.size() - 1)
-                    .mapToDouble(i -> pow2(100 * pow2(positions.get(i + 1) - pow2(positions.get(i)))) + pow2(positions.get(i) - 1))
+                    .mapToDouble(i -> 100 * pow2(positions.get(i + 1) - pow2(positions.get(i))) + pow2(positions.get(i) - 1))
                     .sum()
     ),
     GRINEWANK(

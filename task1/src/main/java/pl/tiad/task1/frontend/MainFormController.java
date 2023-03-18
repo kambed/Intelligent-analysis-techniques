@@ -47,7 +47,9 @@ public class MainFormController implements Initializable {
     @FXML
     public ComboBox<FunctionType> functionComboBox;
     @FXML
-    public TextField numberOfIndividualsParticlesTextField;
+    public TextField numberOfIndividualsTextField;
+    @FXML
+    public TextField numberOfParticlesTextField;
     @FXML
     public TextField minXTextField;
     @FXML
@@ -107,7 +109,7 @@ public class MainFormController implements Initializable {
                     ChartGenerator.generatePlot(
                             algorithm.getIterations().toArray(new Integer[0]),
                             algorithm.getAvgPopulationValues().toArray(new Double[0]),
-                            "average population value"
+                            "Average population value"
                     ),
                     400,
                     250
@@ -119,7 +121,7 @@ public class MainFormController implements Initializable {
                     ChartGenerator.generatePlot(
                             algorithm.getIterations().toArray(new Integer[0]),
                             algorithm.getMinPopulationValues().toArray(new Double[0]),
-                            " minimum population value"
+                            "Minimum population value"
                     ),
                     400,
                     250
@@ -134,11 +136,11 @@ public class MainFormController implements Initializable {
         return new ParticleSwarmAlgorithm(
                 stopTypeMap.get(stopConditionComboBox.getValue()).apply(Double.parseDouble(stopValueTextField.getText())),
                 functionComboBox.getValue(),
-                Integer.parseInt(numberOfIndividualsParticlesTextField.getText()),
+                Integer.parseInt(numberOfIndividualsTextField.getText()),
                 Double.parseDouble(maxXToTextField.getText()),
                 Double.parseDouble(minXTextField.getText()),
                 Integer.parseInt(dimensionsTextField.getText()),
-                Double.parseDouble(amplificationFactorTextField.getText()),
+                Double.parseDouble(intentionTextField.getText()),
                 Double.parseDouble(cognitionTextField.getText()),
                 Double.parseDouble(socialTextField.getText())
         );
@@ -148,7 +150,7 @@ public class MainFormController implements Initializable {
         return new DifferentialEvolutionAlgorithm(
                 stopTypeMap.get(stopConditionComboBox.getValue()).apply(Double.parseDouble(stopValueTextField.getText())),
                 functionComboBox.getValue(),
-                Integer.parseInt(numberOfIndividualsParticlesTextField.getText()),
+                Integer.parseInt(numberOfParticlesTextField.getText()),
                 Double.parseDouble(maxXToTextField.getText()),
                 Double.parseDouble(minXTextField.getText()),
                 Integer.parseInt(dimensionsTextField.getText()),

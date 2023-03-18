@@ -24,23 +24,22 @@
                 <Label text="Function:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
                 <ComboBox fx:id="functionComboBox" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
 
-                <Label text="Number of individuals/particles:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-                <TextField fx:id="numberOfIndividualsParticlesTextField" GridPane.rowIndex="4"
-                           GridPane.columnIndex="1"/>
-
-                <Label text="X range:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
-                <HBox spacing="10" GridPane.rowIndex="5" GridPane.columnIndex="1" alignment="BASELINE_CENTER">
+                <Label text="X range:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                <HBox spacing="10" GridPane.rowIndex="4" GridPane.columnIndex="1" alignment="BASELINE_CENTER">
                     <TextField fx:id="minXTextField"/>
                     <Label text="-"/>
                     <TextField fx:id="maxXToTextField"/>
                 </HBox>
 
-                <Label text="Dimensions:" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
-                <TextField fx:id="dimensionsTextField" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+                <Label text="Dimensions:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+                <TextField fx:id="dimensionsTextField" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
 
 
-                <Label text="Differential Evolution Algorithm specific arguments:" GridPane.rowIndex="7"
+                <Label text="Differential Evolution Algorithm specific arguments:" GridPane.rowIndex="6"
                        GridPane.columnIndex="0" GridPane.columnSpan="2" styleClass="header"/>
+
+                <Label text="Number of individuals:" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
+                <TextField fx:id="numberOfIndividualsTextField" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
 
                 <Label text="Amplification factor:" GridPane.rowIndex="8" GridPane.columnIndex="0"/>
                 <TextField fx:id="amplificationFactorTextField" GridPane.rowIndex="8" GridPane.columnIndex="1"/>
@@ -52,14 +51,17 @@
                 <Label text="Particle Swarm Algorithm specific arguments:" GridPane.rowIndex="10" GridPane.columnIndex="0"
                        GridPane.columnSpan="2" styleClass="header"/>
 
-                <Label text="Intention" GridPane.rowIndex="11" GridPane.columnIndex="0"/>
-                <TextField fx:id="intentionTextField" GridPane.rowIndex="11" GridPane.columnIndex="1"/>
+                <Label text="Number of particles:" GridPane.rowIndex="11" GridPane.columnIndex="0"/>
+                <TextField fx:id="numberOfParticlesTextField" GridPane.rowIndex="11" GridPane.columnIndex="1"/>
 
-                <Label text="Cognition" GridPane.rowIndex="12" GridPane.columnIndex="0"/>
-                <TextField fx:id="cognitionTextField" GridPane.rowIndex="12" GridPane.columnIndex="1"/>
+                <Label text="Intention" GridPane.rowIndex="12" GridPane.columnIndex="0"/>
+                <TextField fx:id="intentionTextField" GridPane.rowIndex="12" GridPane.columnIndex="1"/>
 
-                <Label text="Social" GridPane.rowIndex="13" GridPane.columnIndex="0"/>
-                <TextField fx:id="socialTextField" GridPane.rowIndex="13" GridPane.columnIndex="1"/>
+                <Label text="Cognition" GridPane.rowIndex="13" GridPane.columnIndex="0"/>
+                <TextField fx:id="cognitionTextField" GridPane.rowIndex="13" GridPane.columnIndex="1"/>
+
+                <Label text="Social" GridPane.rowIndex="14" GridPane.columnIndex="0"/>
+                <TextField fx:id="socialTextField" GridPane.rowIndex="14" GridPane.columnIndex="1"/>
             </GridPane>
             <Button text="Start" onAction="#start" maxWidth="Infinity"/>
 
