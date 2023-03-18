@@ -76,7 +76,7 @@
                 <Label text="Differential Evolution Algorithm charts:" styleClass="header"/>
                 <HBox spacing="10">
                     <ImageView fx:id="deaChart1" fitHeight="250" fitWidth="400"/>
-                    <ImageView fx:id="deaChart2" fitHeight="250" fitWidth="400" pickOnBounds="true" preserveRatio="true"/>
+                    <ImageView fx:id="deaChart2" fitHeight="250" fitWidth="400"/>
                 </HBox>
             </VBox>
         </VBox>

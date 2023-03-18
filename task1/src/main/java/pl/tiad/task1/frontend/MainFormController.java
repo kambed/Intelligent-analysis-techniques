@@ -28,6 +28,10 @@ import java.util.function.Function;
 public class MainFormController implements Initializable {
     public static final String MAIN_FORM_RESOURCE = "MainForm.fxml";
     public static final String MAIN_FORM_TITLE = "DE and PSO Algorithms";
+    private final Map<String, Function<Double, StopType>> stopTypeMap = Map.of(
+            "Accuracy", AccuracyStop::new,
+            "Iteration", number -> new IterationStop(number.intValue())
+    );
     @FXML
     public ComboBox<String> stopConditionComboBox;
     @FXML
@@ -60,10 +64,6 @@ public class MainFormController implements Initializable {
     public TextField cognitionTextField;
     @FXML
     public TextField socialTextField;
-    private final Map<String, Function<Double, StopType>> stopTypeMap = Map.of(
-            "Accuracy", AccuracyStop::new,
-            "Iteration", number -> new IterationStop(number.intValue())
-    );
     @FXML
     public TextArea consoleArea;
     @FXML
