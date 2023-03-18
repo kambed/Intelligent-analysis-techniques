@@ -7,7 +7,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import org.jfree.chart.ChartUtilities;
-import pl.tiad.task1.backend.ParticleSwarmAlgorithm;
+import pl.tiad.task1.backend.utils.FunctionType;
+import pl.tiad.task1.backend.utils.AccuracyStop;
+import pl.tiad.task1.backend.pso.ParticleSwarmAlgorithm;
+import pl.tiad.task1.backend.utils.IterationStop;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -53,21 +56,25 @@ public class MainFormController {
         if (!stringPath.isBlank()) {
             Files.write(Paths.get(stringPath), consoleArea.getText().getBytes());
             consoleArea.setText("");
-            consoleArea.appendText("Logs saved saved to: %s\n".formatted(stringPath));
+            consoleArea.appendText("Logs saved saved to: %s%n".formatted(stringPath));
         }
     }
 
     public void start() {
-        ParticleSwarmAlgorithm psa = new ParticleSwarmAlgorithm(Integer.parseInt(amountOfIterations.getText()),
-                Integer.parseInt(amountOfParticles.getText()),
-                Double.parseDouble(maxx.getText()), Double.parseDouble(minx.getText()),
-                Double.parseDouble(maxy.getText()), Double.parseDouble(miny.getText()), function.getText(),
-                Double.parseDouble(inertion.getText()), Double.parseDouble(cognition.getText()), Double.parseDouble(social.getText()));
+        ParticleSwarmAlgorithm psa = new ParticleSwarmAlgorithm(new IterationStop(100), FunctionType.SPHERE,
+                1000, 100, -100, 30, 0.9, 0.8, 0.7);
+//        ParticleSwarmAlgorithm psa = new ParticleSwarmAlgorithm(new AccuracyStop(0.1), FunctionType.SPHERE,
+//                1000, 100, -100, 30, 0.9, 0.8, 0.7);
+//        DifferentialEvolutionAlgorithm psa = new DifferentialEvolutionAlgorithm(
+//                new IterationStop(10000), FunctionType.SPHERE, 600, 100, -100,
+//                30, 0.5, 0.8);
         Map<String, Double> extremum = psa.start();
         consoleArea.appendText("Lowest value in function: " + extremum.get("Adaptation") + "\n");
-        consoleArea.appendText("X: " + extremum.get("X") + "\n");
-        consoleArea.appendText("Y: " + extremum.get("Y") + "\n");
-
+        int i = 0;
+        do {
+            consoleArea.appendText("X" + (i + 1) + ": " + extremum.get("X" + i) + "\n");
+            i++;
+        } while (extremum.get("X" + i) != null);
         try {
             ChartUtilities.saveChartAsPNG(
                     new File("chart.png"),
