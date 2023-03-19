@@ -12,7 +12,7 @@ public enum FunctionType {
     ),
     F2(
             (List<Double> positions) -> IntStream.range(0, positions.size() - 1)
-                    .mapToDouble(i -> pow2(positions.get(i) - i))
+                    .mapToDouble(i -> pow2(positions.get(i) - i + 1))
                     .sum()
     ),
     ROSENBROCK(
