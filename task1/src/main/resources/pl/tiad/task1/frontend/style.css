@@ -1,6 +1,21 @@
-.root{
+.root {
     -fx-background-image: url("background.jpg");
     -fx-background-repeat: no-repeat;
-    -fx-background-size: 959 719;
     -fx-background-position: center center;
+    -fx-background-size: cover;
+}
+Label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(three-pass-box, black, 2, 0.5, 0, 0);
+}
+ComboBox, TextField, TextArea {
+    -fx-max-width: Infinity;
+    -fx-opacity: 0.9;
+}
+
+.header {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(three-pass-box, black, 2, 0.5, 0, 0);
 }

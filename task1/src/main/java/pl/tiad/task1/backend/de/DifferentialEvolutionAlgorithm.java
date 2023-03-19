@@ -9,9 +9,6 @@ import java.util.stream.IntStream;
 
 public class DifferentialEvolutionAlgorithm extends Algorithm {
     private final List<Individual> individuals = new ArrayList<>();
-    private final List<Integer> iterations = new ArrayList<>();
-    private final List<Double> avgPopulationValues = new ArrayList<>();
-    private final List<Double> minPopulationValues = new ArrayList<>();
     private final FunctionType functionType;
     private final Random r = new Random();
 
@@ -58,17 +55,5 @@ public class DifferentialEvolutionAlgorithm extends Algorithm {
         iterations.add(i + 1);
         minPopulationValues.add(bestAdaptation);
         avgPopulationValues.add(avgAdaptation);
-    }
-
-    public List<Integer> getIterations() {
-        return iterations;
-    }
-
-    public List<Double> getAvgPopulationValues() {
-        return avgPopulationValues;
-    }
-
-    public List<Double> getMinPopulationValues() {
-        return minPopulationValues;
     }
 }
