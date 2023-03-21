@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 import java.util.function.Function;
+import java.util.stream.IntStream;
 
 public class MainFormController implements Initializable {
     public static final String MAIN_FORM_RESOURCE = "MainForm.fxml";
@@ -89,10 +90,17 @@ public class MainFormController implements Initializable {
         List<Map<String, Double>> extremums = new ArrayList<>();
         List<List<Double>> avgPopulationValues = new ArrayList<>();
         List<List<Double>> minPopulationValues = new ArrayList<>();
+        List<List<Integer>> iterations = new ArrayList<>();
         for (int i = 0; i < numberOfRuns; i++) {
-            extremums.add(algorithm.start());
-            avgPopulationValues.add(algorithm.getAvgPopulationValues());
-            minPopulationValues.add(algorithm.getMinPopulationValues());
+            extremums.add(new HashMap<>(algorithm.start()));
+            avgPopulationValues.add(new ArrayList<>(algorithm.getAvgPopulationValues()));
+            minPopulationValues.add(new ArrayList<>(algorithm.getMinPopulationValues()));
+            iterations.add(new ArrayList<>(algorithm.getIterations()));
+            if (algorithm instanceof ParticleSwarmAlgorithm) {
+                algorithm = createParticleSwarmAlgorithm();
+            } else {
+                algorithm = createDifferentialEvolutionAlgorithm();
+            }
         }
         String algorithmName = algorithm.getClass().getSimpleName();
         Map<String, Double> extremum = extremums.stream()
@@ -116,19 +124,19 @@ public class MainFormController implements Initializable {
         } while (extremum.get("X" + i) != null);
         consoleArea.appendText(stringBuilder.toString());
         try {
+            int maxIterations = (int) iterations.stream().mapToDouble(List::size).max().orElse(0.0);
+            List<Double> avgValues = Arrays.asList(new Double[maxIterations]);
+            IntStream.range(0, avgValues.size() - 1).forEach(index ->
+                    avgValues.set(index, avgPopulationValues.stream()
+                            .mapToDouble(list -> list.get(index))
+                            .sum()
+                            / avgPopulationValues.size())
+            );
             ChartUtilities.saveChartAsPNG(
                     new File(populationAvgChart.getId() + ".png"),
                     ChartGenerator.generatePlot(
-                            algorithm.getIterations().toArray(new Integer[0]),
-                            avgPopulationValues.stream()
-                                    .mapToDouble(
-                                            doubles -> doubles.stream()
-                                                    .mapToDouble(Double::doubleValue)
-                                                    .average()
-                                                    .orElse(0)
-                                    )
-                                    .boxed()
-                                    .toArray(Double[]::new),
+                            Arrays.stream(IntStream.range(0, maxIterations).toArray()).boxed().toArray(Integer[]::new),
+                            avgValues.toArray(Double[]::new),
                             "Average population value"
                     ),
                     400,
