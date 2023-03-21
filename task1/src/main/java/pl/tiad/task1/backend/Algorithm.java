@@ -33,6 +33,9 @@ public abstract class Algorithm {
         do {
             algorithmStep(i);
             i++;
+            if (i > 20000) {
+                break;
+            }
         } while (stopType instanceof IterationStop ? function.test(i) : function.test(globalBestAdaptation));
 
         Map<String, Double> bestResults = new HashMap<>();
