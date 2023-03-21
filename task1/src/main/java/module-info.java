@@ -6,6 +6,7 @@ module pl.tiad.task1.frontend {
     requires java.desktop;
     requires jfreechart;
     requires javaluator;
+    requires commons.math;
 
     opens pl.tiad.task1.frontend to javafx.fxml;
     exports pl.tiad.task1.frontend;

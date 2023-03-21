@@ -54,8 +54,8 @@
                 <Label text="Number of particles:" GridPane.rowIndex="11" GridPane.columnIndex="0"/>
                 <TextField fx:id="numberOfParticlesTextField" GridPane.rowIndex="11" GridPane.columnIndex="1"/>
 
-                <Label text="Intention:" GridPane.rowIndex="12" GridPane.columnIndex="0"/>
-                <TextField fx:id="intentionTextField" GridPane.rowIndex="12" GridPane.columnIndex="1"/>
+                <Label text="Inertion:" GridPane.rowIndex="12" GridPane.columnIndex="0"/>
+                <TextField fx:id="inertionTextField" GridPane.rowIndex="12" GridPane.columnIndex="1"/>
 
                 <Label text="Cognition:" GridPane.rowIndex="13" GridPane.columnIndex="0"/>
                 <TextField fx:id="cognitionTextField" GridPane.rowIndex="13" GridPane.columnIndex="1"/>
