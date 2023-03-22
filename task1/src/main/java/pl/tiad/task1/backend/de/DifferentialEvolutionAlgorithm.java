@@ -13,7 +13,7 @@ public class DifferentialEvolutionAlgorithm extends Algorithm {
     private final Random r = new Random();
 
     public DifferentialEvolutionAlgorithm(StopType stopType, FunctionType functionType, int numOfIndividuals, double maxX,
-                                  double minX, int dimensions, double amplificationFactor, double crossChance) {
+                                          double minX, int dimensions, double amplificationFactor, double crossChance) {
         this.stopType = stopType;
         this.dimensions = dimensions;
         this.functionType = functionType;
@@ -31,11 +31,13 @@ public class DifferentialEvolutionAlgorithm extends Algorithm {
                     Individual ind = individuals.get(index);
                     int ind1;
                     int ind2;
+                    int ind3;
                     do {
                         ind1 = r.nextInt(0, individuals.size() - 1);
                         ind2 = r.nextInt(0, individuals.size() - 1);
-                    } while (ind1 == ind2 || ind1 == index || ind2 == index);
-                    ind.mutate(individuals.get(ind1), individuals.get(ind2));
+                        ind3 = r.nextInt(0, individuals.size() - 1);
+                    } while (ind1 == ind2 || ind1 == ind3 || ind2 == ind3);
+                    ind.mutate(individuals.get(ind3), individuals.get(ind1), individuals.get(ind2));
                     ind.cross();
                     ind.selection();
                 });

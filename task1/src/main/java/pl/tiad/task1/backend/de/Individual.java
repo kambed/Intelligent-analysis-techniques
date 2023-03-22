@@ -9,6 +9,7 @@ import java.util.stream.IntStream;
 
 public class Individual {
     private final List<Double> pos = new ArrayList<>();
+    private List<Double> base = new ArrayList<>();
     private final List<Double> posMutant = new ArrayList<>();
     private final List<Double> posTrial = new ArrayList<>();
     private final double amplificationFactor;
@@ -34,10 +35,10 @@ public class Individual {
         return pos;
     }
 
-    public void mutate(Individual i1, Individual i2) {
+    public void mutate(Individual base, Individual i1, Individual i2) {
         IntStream.range(0, pos.size())
                 .forEach(index ->
-                        posMutant.set(index, pos.get(index) + (amplificationFactor * (i1.pos.get(index) - i2.pos.get(index))))
+                        posMutant.set(index, base.pos.get(index) + (amplificationFactor * (i1.pos.get(index) - i2.pos.get(index))))
                 );
     }
 
