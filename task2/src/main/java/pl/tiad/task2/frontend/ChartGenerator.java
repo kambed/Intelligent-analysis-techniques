@@ -39,7 +39,7 @@ public class ChartGenerator {
         plot.setRenderer(renderer);
 
         plot.getRangeAxis().setAutoRange(true);                            // uncomment
-        ((NumberAxis)plot.getRangeAxis()).setAutoRangeIncludesZero(false); // add
+        ((NumberAxis) plot.getRangeAxis()).setAutoRangeIncludesZero(false); // add
 
         return chart;
     }
