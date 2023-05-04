@@ -117,8 +117,8 @@ public class MainFormController implements Initializable {
 
         double stdDeviation = new StandardDeviation().evaluate(
                 Arrays.stream(extremums.stream().map(o -> o.get("Adaptation")).toArray(Double[]::new))
-                .mapToDouble(Double::doubleValue)
-                .toArray()
+                        .mapToDouble(Double::doubleValue)
+                        .toArray()
         );
         stringBuilder.append("Standard deviation: ")
                 .append(stdDeviation)

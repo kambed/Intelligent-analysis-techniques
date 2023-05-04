@@ -19,6 +19,7 @@ public class OsmosisParticlaSwarmAlgorithm extends Algorithm {
     private final Map<Integer, Double> psoBestValuesOfSwarms = new HashMap<>();
     private final Map<Integer, Double> psoAvgValuesOfSwarms = new HashMap<>();
     private final List<Pair<Integer, Integer>> migrationPairs;
+
     public OsmosisParticlaSwarmAlgorithm(List<ParticleSwarmAlgorithm> psoSwarms, StopType stopType, int migrationInterval, int dimensions) {
         this.dimensions = dimensions;
         this.stopType = stopType;
