@@ -204,16 +204,5 @@ public class MainFormController implements Initializable {
     }
 
     //TODO: CREATE EPSO ALGORITHM
-//    private DifferentialEvolutionAlgorithm createDifferentialEvolutionAlgorithm() {
-//        return new DifferentialEvolutionAlgorithm(
-//                stopTypeMap.get(stopConditionComboBox.getValue()).apply(Double.parseDouble(stopValueTextField.getText())),
-//                functionComboBox.getValue(),
-//                Integer.parseInt(numberOfParticlesTextField.getText()),
-//                Double.parseDouble(maxXToTextField.getText()),
-//                Double.parseDouble(minXTextField.getText()),
-//                Integer.parseInt(dimensionsTextField.getText()),
-//                Double.parseDouble(amplificationFactorTextField.getText()),
-//                Double.parseDouble(crossoverProbabilityTextField.getText())
-//        );
-//    }
+    //private EliteParticleSwarmAlgorithm createEliteParticleSwarmAlgorithm() {
 }
