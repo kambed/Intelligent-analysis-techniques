@@ -11,6 +11,7 @@ import javafx.scene.layout.VBox;
 import org.apache.commons.math.stat.descriptive.moment.StandardDeviation;
 import org.jfree.chart.ChartUtilities;
 import pl.tiad.task2.backend.Algorithm;
+import pl.tiad.task2.backend.opso.OsmosisParticlaSwarmAlgorithm;
 import pl.tiad.task2.backend.pso.ParticleSwarmAlgorithm;
 import pl.tiad.task2.backend.utils.AccuracyStop;
 import pl.tiad.task2.backend.utils.FunctionType;
@@ -37,19 +38,15 @@ public class MainFormController implements Initializable {
     @FXML
     public TextField stopValueTextField;
     @FXML
-    public ImageView psoChart1;
+    public ImageView opsoChart1;
     @FXML
-    public ImageView psoChart2;
+    public ImageView opsoChart2;
     @FXML
-    public ImageView deaChart1;
+    public ImageView epsoChart1;
     @FXML
-    public ImageView deaChart2;
+    public ImageView epsoChart2;
     @FXML
     public ComboBox<FunctionType> functionComboBox;
-    @FXML
-    public TextField numberOfIndividualsTextField;
-    @FXML
-    public TextField numberOfParticlesTextField;
     @FXML
     public TextField minXTextField;
     @FXML
@@ -57,9 +54,11 @@ public class MainFormController implements Initializable {
     @FXML
     public TextField dimensionsTextField;
     @FXML
-    public TextField amplificationFactorTextField;
+    public TextField numberOfParticlesInEachSubpopulationTextField;
     @FXML
-    public TextField crossoverProbabilityTextField;
+    public TextField migrationIntervalTextField;
+    @FXML
+    public TextField numberOfSubPopulationsTextField;
     @FXML
     public TextField inertionTextField;
     @FXML
@@ -80,8 +79,9 @@ public class MainFormController implements Initializable {
     }
 
     public void start() {
-        start(createParticleSwarmAlgorithm(), psoChart1, psoChart2);
-        //start(createDifferentialEvolutionAlgorithm(), deaChart1, deaChart2);
+        start(createOsmosisParticleSwarmAlgorithm(), opsoChart1, opsoChart2);
+        //TODO: CREATE EPSO ALGORITHM
+        //start(createDifferentialEvolutionAlgorithm(), epsoChart1, epsoChart2);
         resultSection.setVisible(true);
     }
 
@@ -96,9 +96,10 @@ public class MainFormController implements Initializable {
             avgPopulationValues.add(new ArrayList<>(algorithm.getAvgPopulationValues()));
             minPopulationValues.add(new ArrayList<>(algorithm.getMinPopulationValues()));
             iterations.add(new ArrayList<>(algorithm.getIterations()));
-            if (algorithm instanceof ParticleSwarmAlgorithm) {
-                algorithm = createParticleSwarmAlgorithm();
+            if (algorithm instanceof OsmosisParticlaSwarmAlgorithm) {
+                algorithm = createOsmosisParticleSwarmAlgorithm();
             } else {
+                //TODO: CREATE EPSO ALGORITHM
                 //algorithm = createDifferentialEvolutionAlgorithm();
             }
         }
@@ -176,11 +177,23 @@ public class MainFormController implements Initializable {
         }
     }
 
+    private OsmosisParticlaSwarmAlgorithm createOsmosisParticleSwarmAlgorithm() {
+        List<ParticleSwarmAlgorithm> psoSwarms = new ArrayList<>();
+        for (int i = 0; i < Integer.parseInt(numberOfSubPopulationsTextField.getText()); i++) {
+            psoSwarms.add(createParticleSwarmAlgorithm());
+        }
+        return new OsmosisParticlaSwarmAlgorithm(
+                psoSwarms,
+                stopTypeMap.get(stopConditionComboBox.getValue()).apply(Double.parseDouble(stopValueTextField.getText())),
+                Integer.parseInt(migrationIntervalTextField.getText()),
+                Integer.parseInt(dimensionsTextField.getText())
+        );
+    }
+
     private ParticleSwarmAlgorithm createParticleSwarmAlgorithm() {
         return new ParticleSwarmAlgorithm(
-                stopTypeMap.get(stopConditionComboBox.getValue()).apply(Double.parseDouble(stopValueTextField.getText())),
                 functionComboBox.getValue(),
-                Integer.parseInt(numberOfIndividualsTextField.getText()),
+                Integer.parseInt(numberOfParticlesInEachSubpopulationTextField.getText()),
                 Double.parseDouble(maxXToTextField.getText()),
                 Double.parseDouble(minXTextField.getText()),
                 Integer.parseInt(dimensionsTextField.getText()),
@@ -190,6 +203,7 @@ public class MainFormController implements Initializable {
         );
     }
 
+    //TODO: CREATE EPSO ALGORITHM
 //    private DifferentialEvolutionAlgorithm createDifferentialEvolutionAlgorithm() {
 //        return new DifferentialEvolutionAlgorithm(
 //                stopTypeMap.get(stopConditionComboBox.getValue()).apply(Double.parseDouble(stopValueTextField.getText())),
