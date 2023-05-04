@@ -51,17 +51,9 @@ public class OsmosisParticlaSwarmAlgorithm extends Algorithm {
         if (i != 0 && i % migrationInterval == 0) {
             migrationPairs.forEach(
                     migrationPair -> {
-                        int fromSwarm;
-                        int toSwarm;
-                        if (psoBestValuesOfSwarms.get(migrationPair.getKey()) < psoBestValuesOfSwarms.get(migrationPair.getValue())) {
-                            fromSwarm = migrationPair.getKey();
-                            toSwarm = migrationPair.getValue();
-                        } else {
-                            fromSwarm = migrationPair.getValue();
-                            toSwarm = migrationPair.getKey();
-                        }
-                        psoSwarms.get(toSwarm).replaceWorst(
-                                psoSwarms.get(fromSwarm).getBestParticles(
+                        Pair<Integer, Integer> direction = getMigrationDirection(migrationPair);
+                        psoSwarms.get(direction.getKey()).replaceWorst(
+                                psoSwarms.get(direction.getValue()).getBestParticles(
                                         calculateLambda(psoBestValuesOfSwarms.get(migrationPair.getKey()), psoBestValuesOfSwarms.get(migrationPair.getValue()))
                                 )
                         );
@@ -72,6 +64,13 @@ public class OsmosisParticlaSwarmAlgorithm extends Algorithm {
         iterations.add(i + 1);
         minPopulationValues.add(psoBestValuesOfSwarms.values().stream().min(Double::compareTo).orElseThrow());
         avgPopulationValues.add(psoAvgValuesOfSwarms.values().stream().mapToDouble(Double::doubleValue).average().orElseThrow());
+    }
+
+    private Pair<Integer, Integer> getMigrationDirection(Pair<Integer, Integer> migrationPair) {
+        if (psoBestValuesOfSwarms.get(migrationPair.getKey()) < psoBestValuesOfSwarms.get(migrationPair.getValue())) {
+            return migrationPair;
+        }
+        return new Pair<>(migrationPair.getValue(), migrationPair.getKey());
     }
 
     private double calculateLambda(double swarm1Fitness, double swarm2Fitness) {
