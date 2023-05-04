@@ -43,21 +43,6 @@
                 <Label text="Dimensions:" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
                 <TextField fx:id="dimensionsTextField" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
 
-
-                <Label styleClass="header" text="Osmosis Particle Swarm Algorithm specific arguments:"
-                       GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="9"/>
-
-                <Label text="Number of particles in each subpopulation:" GridPane.columnIndex="0"
-                       GridPane.rowIndex="11"/>
-                <TextField fx:id="numberOfParticlesInEachSubpopulationTextField" GridPane.columnIndex="1"
-                           GridPane.rowIndex="11"/>
-
-                <Label text="Migration interval:" GridPane.columnIndex="0" GridPane.rowIndex="12"/>
-                <TextField fx:id="migrationIntervalTextField" GridPane.columnIndex="1" GridPane.rowIndex="12"/>
-
-                <Label text="Number of subpopulations:" GridPane.columnIndex="0" GridPane.rowIndex="10"/>
-                <TextField fx:id="numberOfSubPopulationsTextField" GridPane.columnIndex="1" GridPane.rowIndex="10"/>
-
                 <Label text="Inertion:" GridPane.columnIndex="0" GridPane.rowIndex="6"/>
                 <TextField fx:id="inertionTextField" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
 
@@ -66,6 +51,21 @@
 
                 <Label text="Social:" GridPane.columnIndex="0" GridPane.rowIndex="8"/>
                 <TextField fx:id="socialTextField" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
+
+
+                <Label styleClass="header" text="Osmosis Particle Swarm Algorithm specific arguments:"
+                       GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="9"/>
+
+                <Label text="Number of subpopulations:" GridPane.columnIndex="0" GridPane.rowIndex="10"/>
+                <TextField fx:id="numberOfSubPopulationsTextField" GridPane.columnIndex="1" GridPane.rowIndex="10"/>
+
+                <Label text="Number of particles in each subpopulation:" GridPane.columnIndex="0"
+                       GridPane.rowIndex="11"/>
+                <TextField fx:id="numberOfParticlesInEachSubpopulationTextField" GridPane.columnIndex="1"
+                           GridPane.rowIndex="11"/>
+
+                <Label text="Migration interval:" GridPane.columnIndex="0" GridPane.rowIndex="12"/>
+                <TextField fx:id="migrationIntervalTextField" GridPane.columnIndex="1" GridPane.rowIndex="12"/>
 
                 <Label text="Number of runs:" GridPane.columnIndex="0" GridPane.rowIndex="13"/>
                 <TextField fx:id="numberOFRunsTextField" GridPane.columnIndex="1" GridPane.rowIndex="13"/>
