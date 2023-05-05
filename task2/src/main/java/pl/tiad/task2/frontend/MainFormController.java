@@ -85,23 +85,24 @@ public class MainFormController implements Initializable {
         resultSection.setVisible(true);
     }
 
-    private void start(Algorithm algorithm, ImageView populationAvgChart, ImageView populationMinChart) {
+    private void start(final Algorithm algorithm, ImageView populationAvgChart, ImageView populationMinChart) {
         int numberOfRuns = Integer.parseInt(numberOFRunsTextField.getText());
         List<Map<String, Double>> extremums = new ArrayList<>();
         List<List<Double>> avgPopulationValues = new ArrayList<>();
         List<List<Double>> minPopulationValues = new ArrayList<>();
         List<List<Integer>> iterations = new ArrayList<>();
-        for (int i = 0; i < numberOfRuns; i++) {
-            extremums.add(new HashMap<>(algorithm.start()));
-            avgPopulationValues.add(new ArrayList<>(algorithm.getAvgPopulationValues()));
-            minPopulationValues.add(new ArrayList<>(algorithm.getMinPopulationValues()));
-            iterations.add(new ArrayList<>(algorithm.getIterations()));
-            if (algorithm instanceof OsmosisParticleSwarmAlgorithm) {
-                algorithm = createOsmosisParticleSwarmAlgorithm();
+        IntStream.range(0, numberOfRuns).parallel().forEach( i -> {
+            Algorithm algorithmVersion = algorithm;
+            if (algorithmVersion instanceof OsmosisParticleSwarmAlgorithm) {
+                algorithmVersion = createOsmosisParticleSwarmAlgorithm();
             } else {
-                algorithm = createEliteParticleSwarmAlgorithm();
+                algorithmVersion = createEliteParticleSwarmAlgorithm();
             }
-        }
+            extremums.add(new HashMap<>(algorithmVersion.start()));
+            avgPopulationValues.add(new ArrayList<>(algorithmVersion.getAvgPopulationValues()));
+            minPopulationValues.add(new ArrayList<>(algorithmVersion.getMinPopulationValues()));
+            iterations.add(new ArrayList<>(algorithmVersion.getIterations()));
+        });
         String algorithmName = algorithm.getClass().getSimpleName();
         Map<String, Double> extremum = extremums.stream()
                 .min(Comparator.comparingDouble(o -> o.get("Adaptation")))
