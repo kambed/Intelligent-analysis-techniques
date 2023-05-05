@@ -45,7 +45,8 @@ public class EliteParticleSwarmAlgorithm extends Algorithm {
                     psoSwarm.addParticle(bestInSwarm);
                     double bestAdaptation = Math.max(results.get("bestAdaptation"), bestInSwarm.getAdaptation());
                     psoBestValuesOfSwarms.put(swarmNum.get(), bestAdaptation);
-                    psoAvgValuesOfSwarms.put(swarmNum.get(), (results.get("avgAdaptation") * numOfParticlesInEachSwarm + bestInSwarm.getAdaptation()) / numOfParticlesInEachSwarm);
+                    psoAvgValuesOfSwarms.put(swarmNum.get(), (results.get("avgAdaptation") * numOfParticlesInEachSwarm +
+                            bestInSwarm.getAdaptation()) / numOfParticlesInEachSwarm);
                     if (bestAdaptation < globalBestAdaptation) {
                         globalBestAdaptation = bestAdaptation;
                         IntStream.range(0, dimensions)
