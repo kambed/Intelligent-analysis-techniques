@@ -65,13 +65,14 @@ public class ParticleSwarmAlgorithm {
 
     public void addParticle(Particle particle) {
         particles.add(particle);
-        if (particle.getAdaptation() < bestParticle.getAdaptation()) {
-            bestParticle = particle;
-            for (Particle p : particles) {
-                Particle finalBestParticle = bestParticle;
-                IntStream.range(0, dimensions)
-                        .forEach(index -> p.setBestXInSwarm(index, finalBestParticle.getPos(index)));
-            }
+        if (particle.getAdaptation() >= bestParticle.getAdaptation()) {
+            return;
+        }
+        bestParticle = particle;
+        for (Particle p : particles) {
+            Particle finalBestParticle = bestParticle;
+            IntStream.range(0, dimensions)
+                    .forEach(index -> p.setBestXInSwarm(index, finalBestParticle.getPos(index)));
         }
     }
 
