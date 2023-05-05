@@ -5,10 +5,7 @@ import pl.tiad.task2.backend.pso.Particle;
 import pl.tiad.task2.backend.pso.ParticleSwarmAlgorithm;
 import pl.tiad.task2.backend.utils.StopType;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.IntStream;
 
@@ -19,6 +16,7 @@ public class EliteParticleSwarmAlgorithm extends Algorithm {
     private final Map<Integer, Double> psoBestValuesOfSwarms = new HashMap<>();
     private final Map<Integer, Double> psoAvgValuesOfSwarms = new HashMap<>();
     private final int numOfParticlesInEachSwarm;
+    private final Random random = new Random();
 
     public EliteParticleSwarmAlgorithm(List<ParticleSwarmAlgorithm> psoSwarms, StopType stopType, int dimensions,
                                        int numOfParticlesInEachSwarm) {
@@ -66,7 +64,7 @@ public class EliteParticleSwarmAlgorithm extends Algorithm {
                 .forEach(index -> newPos.add(eliteParticles.values().stream()
                         .mapToDouble(particle -> particle.getPos(index))
                         .average()
-                        .orElseThrow()));
+                        .orElseThrow() * (1 + random.nextGaussian(0, 1))));
         return newPos;
     }
 }

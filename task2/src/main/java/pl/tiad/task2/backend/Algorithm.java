@@ -18,6 +18,7 @@ public abstract class Algorithm {
     protected final List<Integer> iterations = new CopyOnWriteArrayList<>();
     protected final List<Double> avgPopulationValues = new CopyOnWriteArrayList<>();
     protected final List<Double> minPopulationValues = new CopyOnWriteArrayList<>();
+    private static final int MAX_ITERATIONS_FOR_ACCURACY = 5000;
 
     private final DoublePredicate function = value -> {
         if (stopType instanceof IterationStop) {
@@ -33,7 +34,7 @@ public abstract class Algorithm {
         do {
             algorithmStep(i);
             i++;
-            if (i > 5000) {
+            if (i > MAX_ITERATIONS_FOR_ACCURACY) {
                 break;
             }
         } while (stopType instanceof IterationStop ? function.test(i) : function.test(globalBestAdaptation));
@@ -57,5 +58,9 @@ public abstract class Algorithm {
 
     public List<Double> getMinPopulationValues() {
         return minPopulationValues;
+    }
+
+    public static int getMaxIterationsForAccuracy() {
+        return MAX_ITERATIONS_FOR_ACCURACY;
     }
 }
