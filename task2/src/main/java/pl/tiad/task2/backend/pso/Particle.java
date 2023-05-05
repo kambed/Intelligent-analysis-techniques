@@ -85,6 +85,10 @@ public class Particle {
         return pos.get(index);
     }
 
+    public void setPos(List<Double> newPos) {
+        IntStream.range(0, dimensions).forEach(i -> pos.set(i, newPos.get(i)));
+    }
+
     public void setBestXInSwarm(int index, double bestXInSwarm) {
         this.bestPosInSwarm.set(index, bestXInSwarm);
     }
