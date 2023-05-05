@@ -3,10 +3,10 @@ package pl.tiad.task2.backend;
 import pl.tiad.task2.backend.utils.IterationStop;
 import pl.tiad.task2.backend.utils.StopType;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.DoublePredicate;
 import java.util.stream.IntStream;
 
@@ -14,10 +14,10 @@ public abstract class Algorithm {
     protected int dimensions;
     protected StopType stopType;
     protected double globalBestAdaptation = Double.MAX_VALUE;
-    protected final List<Double> globalBest = new ArrayList<>();
-    protected final List<Integer> iterations = new ArrayList<>();
-    protected final List<Double> avgPopulationValues = new ArrayList<>();
-    protected final List<Double> minPopulationValues = new ArrayList<>();
+    protected final List<Double> globalBest = new CopyOnWriteArrayList<>();
+    protected final List<Integer> iterations = new CopyOnWriteArrayList<>();
+    protected final List<Double> avgPopulationValues = new CopyOnWriteArrayList<>();
+    protected final List<Double> minPopulationValues = new CopyOnWriteArrayList<>();
 
     private final DoublePredicate function = value -> {
         if (stopType instanceof IterationStop) {

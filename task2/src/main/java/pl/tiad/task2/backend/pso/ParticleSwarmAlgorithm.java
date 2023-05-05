@@ -3,13 +3,15 @@ package pl.tiad.task2.backend.pso;
 import pl.tiad.task2.backend.utils.FunctionType;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.IntStream;
 
 public class ParticleSwarmAlgorithm {
     private final int numOfParticles;
     private final int dimensions;
     private Particle bestParticle = null;
-    private final List<Particle> particles = new ArrayList<>();
+    private final List<Particle> particles = new CopyOnWriteArrayList<>();
 
     public ParticleSwarmAlgorithm(FunctionType functionType, int numOfParticles, double maxX,
                                   double minX, int dimensions, double inertion, double cognition, double social) {
