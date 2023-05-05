@@ -29,7 +29,7 @@ import java.util.stream.IntStream;
 
 public class MainFormController implements Initializable {
     public static final String MAIN_FORM_RESOURCE = "MainForm.fxml";
-    public static final String MAIN_FORM_TITLE = "DE and PSO Algorithms";
+    public static final String MAIN_FORM_TITLE = "OPSO and EPSO Algorithms";
     private final Map<String, Function<Double, StopType>> stopTypeMap = Map.of(
             "Accuracy", AccuracyStop::new,
             "Iteration", number -> new IterationStop(number.intValue())
@@ -123,6 +123,17 @@ public class MainFormController implements Initializable {
         stringBuilder.append("Standard deviation: ")
                 .append(stdDeviation)
                 .append("\n");
+
+        if (stopConditionComboBox.getValue().equals("Accuracy")) {
+            double successRate = minPopulationValues.stream()
+                    .mapToDouble(List::size)
+                    .filter(size -> size != Algorithm.getMaxIterationsForAccuracy() + 1)
+                    .count() / (double) (numberOfRuns);
+            stringBuilder.append("Success rate: ")
+                    .append(successRate * 100)
+                    .append("%")
+                    .append("\n");
+        }
 
         int i = 0;
         do {
