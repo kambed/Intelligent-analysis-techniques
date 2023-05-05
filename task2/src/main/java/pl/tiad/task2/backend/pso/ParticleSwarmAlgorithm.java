@@ -57,6 +57,24 @@ public class ParticleSwarmAlgorithm {
         return bestParticle;
     }
 
+    public Particle removeBestParticle() {
+        Particle best = getBestParticle();
+        particles.remove(best);
+        return best;
+    }
+
+    public void addParticle(Particle particle) {
+        particles.add(particle);
+        if (particle.getAdaptation() < bestParticle.getAdaptation()) {
+            bestParticle = particle;
+            for (Particle p : particles) {
+                Particle finalBestParticle = bestParticle;
+                IntStream.range(0, dimensions)
+                        .forEach(index -> p.setBestXInSwarm(index, finalBestParticle.getPos(index)));
+            }
+        }
+    }
+
     public List<Particle> getBestParticles(double percentage) {
         return particles.stream()
                 .sorted(Comparator.comparingDouble(Particle::getAdaptation))

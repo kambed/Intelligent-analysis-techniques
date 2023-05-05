@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.IntStream;
 
-public class OsmosisParticlaSwarmAlgorithm extends Algorithm {
+public class OsmosisParticleSwarmAlgorithm extends Algorithm {
 
     private final List<ParticleSwarmAlgorithm> psoSwarms;
     private final int migrationInterval;
@@ -20,7 +20,7 @@ public class OsmosisParticlaSwarmAlgorithm extends Algorithm {
     private final Map<Integer, Double> psoAvgValuesOfSwarms = new HashMap<>();
     private final List<Pair<Integer, Integer>> migrationPairs;
 
-    public OsmosisParticlaSwarmAlgorithm(List<ParticleSwarmAlgorithm> psoSwarms, StopType stopType, int migrationInterval, int dimensions) {
+    public OsmosisParticleSwarmAlgorithm(List<ParticleSwarmAlgorithm> psoSwarms, StopType stopType, int migrationInterval, int dimensions) {
         this.dimensions = dimensions;
         this.stopType = stopType;
         this.psoSwarms = psoSwarms;

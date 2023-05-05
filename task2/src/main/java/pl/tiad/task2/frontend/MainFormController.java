@@ -11,7 +11,8 @@ import javafx.scene.layout.VBox;
 import org.apache.commons.math.stat.descriptive.moment.StandardDeviation;
 import org.jfree.chart.ChartUtilities;
 import pl.tiad.task2.backend.Algorithm;
-import pl.tiad.task2.backend.opso.OsmosisParticlaSwarmAlgorithm;
+import pl.tiad.task2.backend.epso.EliteParticleSwarmAlgorithm;
+import pl.tiad.task2.backend.opso.OsmosisParticleSwarmAlgorithm;
 import pl.tiad.task2.backend.pso.ParticleSwarmAlgorithm;
 import pl.tiad.task2.backend.utils.AccuracyStop;
 import pl.tiad.task2.backend.utils.FunctionType;
@@ -80,8 +81,7 @@ public class MainFormController implements Initializable {
 
     public void start() {
         start(createOsmosisParticleSwarmAlgorithm(), opsoChart1, opsoChart2);
-        //TODO: CREATE EPSO ALGORITHM
-        //start(createDifferentialEvolutionAlgorithm(), epsoChart1, epsoChart2);
+        start(createEliteParticleSwarmAlgorithm(), epsoChart1, epsoChart2);
         resultSection.setVisible(true);
     }
 
@@ -96,11 +96,10 @@ public class MainFormController implements Initializable {
             avgPopulationValues.add(new ArrayList<>(algorithm.getAvgPopulationValues()));
             minPopulationValues.add(new ArrayList<>(algorithm.getMinPopulationValues()));
             iterations.add(new ArrayList<>(algorithm.getIterations()));
-            if (algorithm instanceof OsmosisParticlaSwarmAlgorithm) {
+            if (algorithm instanceof OsmosisParticleSwarmAlgorithm) {
                 algorithm = createOsmosisParticleSwarmAlgorithm();
             } else {
-                //TODO: CREATE EPSO ALGORITHM
-                //algorithm = createDifferentialEvolutionAlgorithm();
+                algorithm = createEliteParticleSwarmAlgorithm();
             }
         }
         String algorithmName = algorithm.getClass().getSimpleName();
@@ -177,16 +176,29 @@ public class MainFormController implements Initializable {
         }
     }
 
-    private OsmosisParticlaSwarmAlgorithm createOsmosisParticleSwarmAlgorithm() {
+    private OsmosisParticleSwarmAlgorithm createOsmosisParticleSwarmAlgorithm() {
         List<ParticleSwarmAlgorithm> psoSwarms = new ArrayList<>();
         for (int i = 0; i < Integer.parseInt(numberOfSubPopulationsTextField.getText()); i++) {
             psoSwarms.add(createParticleSwarmAlgorithm());
         }
-        return new OsmosisParticlaSwarmAlgorithm(
+        return new OsmosisParticleSwarmAlgorithm(
                 psoSwarms,
                 stopTypeMap.get(stopConditionComboBox.getValue()).apply(Double.parseDouble(stopValueTextField.getText())),
                 Integer.parseInt(migrationIntervalTextField.getText()),
                 Integer.parseInt(dimensionsTextField.getText())
+        );
+    }
+
+    private EliteParticleSwarmAlgorithm createEliteParticleSwarmAlgorithm() {
+        List<ParticleSwarmAlgorithm> psoSwarms = new ArrayList<>();
+        for (int i = 0; i < Integer.parseInt(numberOfSubPopulationsTextField.getText()); i++) {
+            psoSwarms.add(createParticleSwarmAlgorithm());
+        }
+        return new EliteParticleSwarmAlgorithm(
+                psoSwarms,
+                stopTypeMap.get(stopConditionComboBox.getValue()).apply(Double.parseDouble(stopValueTextField.getText())),
+                Integer.parseInt(dimensionsTextField.getText()),
+                Integer.parseInt(numberOfParticlesInEachSubpopulationTextField.getText())
         );
     }
 
@@ -202,7 +214,4 @@ public class MainFormController implements Initializable {
                 Double.parseDouble(socialTextField.getText())
         );
     }
-
-    //TODO: CREATE EPSO ALGORITHM
-    //private EliteParticleSwarmAlgorithm createEliteParticleSwarmAlgorithm() {
 }
