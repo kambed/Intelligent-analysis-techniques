@@ -126,6 +126,17 @@ public class MainFormController implements Initializable {
                 .append(stdDeviation)
                 .append("\n");
 
+        if (stopConditionComboBox.getValue().equals("Accuracy")) {
+            double successRate = minPopulationValues.stream()
+                    .mapToDouble(List::size)
+                    .filter(size -> size != Algorithm.getMaxIterationsForAccuracy() + 1)
+                    .count() / (double) (numberOfRuns);
+            stringBuilder.append("Success rate: ")
+                    .append(successRate * 100)
+                    .append("%")
+                    .append("\n");
+        }
+
         int i = 0;
         do {
             stringBuilder.append("X")
