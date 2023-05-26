@@ -28,7 +28,7 @@ import java.util.stream.IntStream;
 
 public class MainFormController implements Initializable {
     public static final String MAIN_FORM_RESOURCE = "MainForm.fxml";
-    public static final String MAIN_FORM_TITLE = "DE and PSO Algorithms";
+    public static final String MAIN_FORM_TITLE = "CFA and GL-PSO Algorithms";
     private final Map<String, Function<Double, StopType>> stopTypeMap = Map.of(
             "Accuracy", AccuracyStop::new,
             "Iteration", number -> new IterationStop(number.intValue())
