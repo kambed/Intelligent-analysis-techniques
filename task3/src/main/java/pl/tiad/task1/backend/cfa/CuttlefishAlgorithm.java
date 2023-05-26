@@ -57,6 +57,6 @@ public class CuttlefishAlgorithm extends Algorithm {
 
         iterations.add(i + 1);
         minPopulationValues.add(bestCell.calculateAdaptation());
-        avgPopulationValues.add(avgAdaptation / numOfParticles);
+        avgPopulationValues.add(avgAdaptation);
     }
 }
