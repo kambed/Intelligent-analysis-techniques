@@ -50,17 +50,19 @@ public class MainFormController implements Initializable {
     @FXML
     public TextField numberOfIndividualsTextField;
     @FXML
-    public TextField numberOfParticlesTextField;
-    @FXML
     public TextField minXTextField;
     @FXML
     public TextField maxXToTextField;
     @FXML
+    public TextField r1FactorTextField;
+    @FXML
+    public TextField r2FactorTextField;
+    @FXML
+    public TextField v1FactorTextField;
+    @FXML
+    public TextField v2FactorTextField;
+    @FXML
     public TextField dimensionsTextField;
-    @FXML
-    public TextField amplificationFactorTextField;
-    @FXML
-    public TextField crossoverProbabilityTextField;
     @FXML
     public TextField inertionTextField;
     @FXML
@@ -195,11 +197,14 @@ public class MainFormController implements Initializable {
         return new CuttlefishAlgorithm(
                 stopTypeMap.get(stopConditionComboBox.getValue()).apply(Double.parseDouble(stopValueTextField.getText())),
                 functionComboBox.getValue(),
-                Integer.parseInt(numberOfParticlesTextField.getText()),
+                Integer.parseInt(numberOfIndividualsTextField.getText()),
                 Double.parseDouble(maxXToTextField.getText()),
                 Double.parseDouble(minXTextField.getText()),
                 Integer.parseInt(dimensionsTextField.getText()),
-                1,-1,1,-1
+                Double.parseDouble(r1FactorTextField.getText()),
+                Double.parseDouble(r2FactorTextField.getText()),
+                Double.parseDouble(v1FactorTextField.getText()),
+                Double.parseDouble(v2FactorTextField.getText())
         );
     }
 }

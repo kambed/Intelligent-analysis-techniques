@@ -1,87 +1,116 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
-<VBox style="-fx-background-color: #000055;" xmlns="http://javafx.com/javafx/16"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.tiad.task1.frontend.MainFormController">
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.tiad.task1.frontend.MainFormController">
     <padding>
-        <Insets bottom="10" left="10" right="10" top="10"/>
+        <Insets bottom="10" left="10" right="10" top="10" />
     </padding>
     <HBox spacing="10">
         <VBox spacing="10">
             <GridPane hgap="10" vgap="10">
-                <Label text="Both algorithm arguments:" GridPane.rowIndex="0" GridPane.columnIndex="0"
-                       GridPane.columnSpan="2" styleClass="header"/>
+                <Label styleClass="header" text="Both algorithm arguments:" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" />
 
-                <Label text="Stop condition:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                <ComboBox fx:id="stopConditionComboBox" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                <Label text="Stop condition:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <ComboBox fx:id="stopConditionComboBox" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-                <Label text="Stop value:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                <TextField fx:id="stopValueTextField" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                <Label text="Stop value:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                <TextField fx:id="stopValueTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
-                <Label text="Function:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-                <ComboBox fx:id="functionComboBox" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                <Label text="Function:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                <ComboBox fx:id="functionComboBox" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
-                <Label text="X range:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-                <HBox spacing="10" GridPane.rowIndex="4" GridPane.columnIndex="1" alignment="BASELINE_CENTER">
-                    <TextField fx:id="minXTextField"/>
-                    <Label text="-"/>
-                    <TextField fx:id="maxXToTextField"/>
+                <Label text="X range:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                <HBox alignment="BASELINE_CENTER" spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                    <TextField fx:id="minXTextField" />
+                    <Label text="-" />
+                    <TextField fx:id="maxXToTextField" />
                 </HBox>
 
-                <Label text="Dimensions:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
-                <TextField fx:id="dimensionsTextField" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+                <Label text="Dimensions:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                <TextField fx:id="dimensionsTextField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+
+                <Label text="Number of individuals:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+                <TextField fx:id="numberOfIndividualsTextField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
 
 
-                <Label text="Differential Evolution Algorithm specific arguments:" GridPane.rowIndex="6"
-                       GridPane.columnIndex="0" GridPane.columnSpan="2" styleClass="header"/>
+                <Label styleClass="header" text="Cuttlefish Algorithm specific arguments:" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="7" />
+            <Label text="Reflection r1:" GridPane.rowIndex="8" />
+            <TextField fx:id="r1FactorTextField" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <Label text="Reflection r2:" GridPane.rowIndex="9" />
+            <TextField fx:id="r2FactorTextField" GridPane.columnIndex="1" GridPane.rowIndex="9" />
 
-                <Label text="Number of individuals:" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
-                <TextField fx:id="numberOfIndividualsTextField" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+                <Label text="Visibility v1:" GridPane.columnIndex="0" GridPane.rowIndex="10" />
+                <TextField fx:id="v1FactorTextField" GridPane.columnIndex="1" GridPane.rowIndex="10" />
 
-                <Label text="Amplification factor:" GridPane.rowIndex="8" GridPane.columnIndex="0"/>
-                <TextField fx:id="amplificationFactorTextField" GridPane.rowIndex="8" GridPane.columnIndex="1"/>
-
-                <Label text="Crossover probability:" GridPane.rowIndex="9" GridPane.columnIndex="0"/>
-                <TextField fx:id="crossoverProbabilityTextField" GridPane.rowIndex="9" GridPane.columnIndex="1"/>
+                <Label text="Visibility v2:" GridPane.columnIndex="0" GridPane.rowIndex="11" />
+                <TextField fx:id="v2FactorTextField" GridPane.columnIndex="1" GridPane.rowIndex="11" />
 
 
-                <Label text="Particle Swarm Algorithm specific arguments:" GridPane.rowIndex="10" GridPane.columnIndex="0"
-                       GridPane.columnSpan="2" styleClass="header"/>
+                <Label styleClass="header" text="Particle Swarm Algorithm specific arguments:" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="12" />
 
-                <Label text="Number of particles:" GridPane.rowIndex="11" GridPane.columnIndex="0"/>
-                <TextField fx:id="numberOfParticlesTextField" GridPane.rowIndex="11" GridPane.columnIndex="1"/>
+                <Label text="Inertion:" GridPane.columnIndex="0" GridPane.rowIndex="13" />
+                <TextField fx:id="inertionTextField" GridPane.columnIndex="1" GridPane.rowIndex="13" />
 
-                <Label text="Inertion:" GridPane.rowIndex="12" GridPane.columnIndex="0"/>
-                <TextField fx:id="inertionTextField" GridPane.rowIndex="12" GridPane.columnIndex="1"/>
+                <Label text="Cognition:" GridPane.columnIndex="0" GridPane.rowIndex="14" />
+                <TextField fx:id="cognitionTextField" GridPane.columnIndex="1" GridPane.rowIndex="14" />
 
-                <Label text="Cognition:" GridPane.rowIndex="13" GridPane.columnIndex="0"/>
-                <TextField fx:id="cognitionTextField" GridPane.rowIndex="13" GridPane.columnIndex="1"/>
+                <Label text="Social:" GridPane.columnIndex="0" GridPane.rowIndex="15" />
+                <TextField fx:id="socialTextField" GridPane.columnIndex="1" GridPane.rowIndex="15" />
 
-                <Label text="Social:" GridPane.rowIndex="14" GridPane.columnIndex="0"/>
-                <TextField fx:id="socialTextField" GridPane.rowIndex="14" GridPane.columnIndex="1"/>
-
-                <Label text="Number of runs:" GridPane.rowIndex="15" GridPane.columnIndex="0"/>
-                <TextField fx:id="numberOFRunsTextField" GridPane.rowIndex="15" GridPane.columnIndex="1"/>
+                <Label text="Number of runs:" GridPane.columnIndex="0" GridPane.rowIndex="16" />
+                <TextField fx:id="numberOFRunsTextField" GridPane.columnIndex="1" GridPane.rowIndex="16" />
+            <columnConstraints>
+               <ColumnConstraints />
+               <ColumnConstraints />
+            </columnConstraints>
+            <rowConstraints>
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints minHeight="10.0" prefHeight="30.0" />
+               <RowConstraints minHeight="10.0" prefHeight="30.0" />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+            </rowConstraints>
             </GridPane>
-            <Button text="Start" onAction="#start" maxWidth="Infinity"/>
+            <Button maxWidth="Infinity" onAction="#start" text="Start" />
 
-            <Label text="Console:" styleClass="header"/>
-            <TextArea fx:id="consoleArea" editable="false" wrapText="true"/>
+            <Label styleClass="header" text="Console:" />
+            <TextArea fx:id="consoleArea" editable="false" wrapText="true" />
         </VBox>
-        <VBox spacing="10" fx:id="resultSection" visible="false">
+        <VBox fx:id="resultSection" spacing="10" visible="false">
             <VBox spacing="10">
-                <Label text="Particle Swarm Algorithm charts:" styleClass="header"/>
+                <Label styleClass="header" text="Particle Swarm Algorithm charts:" />
                 <HBox spacing="10">
-                    <ImageView fx:id="psoChart1" fitHeight="250" fitWidth="400"/>
-                    <ImageView fx:id="psoChart2" fitHeight="250" fitWidth="400"/>
+                    <ImageView fx:id="psoChart1" fitHeight="250" fitWidth="400" />
+                    <ImageView fx:id="psoChart2" fitHeight="250" fitWidth="400" />
                 </HBox>
-                <Label text="Differential Evolution Algorithm charts:" styleClass="header"/>
+                <Label styleClass="header" text="Cuttlefish Algorithm charts:" />
                 <HBox spacing="10">
-                    <ImageView fx:id="deaChart1" fitHeight="250" fitWidth="400"/>
-                    <ImageView fx:id="deaChart2" fitHeight="250" fitWidth="400"/>
+                    <ImageView fx:id="deaChart1" fitHeight="250" fitWidth="400" />
+                    <ImageView fx:id="deaChart2" fitHeight="250" fitWidth="400" />
                 </HBox>
             </VBox>
         </VBox>
