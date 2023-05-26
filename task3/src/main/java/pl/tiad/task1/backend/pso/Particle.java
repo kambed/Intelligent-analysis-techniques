@@ -11,6 +11,7 @@ public class Particle {
     private double adaptation;
     private final List<Double> bestPos = new ArrayList<>();
     private final List<Double> bestPosInSwarm = new ArrayList<>();
+    private final List<Double> template = new ArrayList<>();
     private double bestAdaptation = Double.MAX_VALUE;
     private final double maxX;
     private final double minX;
@@ -32,6 +33,7 @@ public class Particle {
                     speed.add(0.0);
                     bestPos.add(pos.get(i));
                     bestPosInSwarm.add(pos.get(i));
+                    template.add(pos.get(i));
                 }
         );
         this.dimensions = dimensions;
@@ -53,14 +55,12 @@ public class Particle {
     }
 
     public void move() {
-        double cognitionAcceleration = cognition * r.nextDouble(1);
-        double socialAcceleration = social * r.nextDouble(1);
+        double templateAcceleration = ((cognition + social) / 2) * r.nextDouble(1);
         IntStream.range(0, dimensions).forEach(
                 i -> {
                     double inertionPart = inertion * speed.get(i);
-                    double cognitionPart = cognitionAcceleration * (bestPos.get(i) - pos.get(i));
-                    double socialPart = socialAcceleration * (bestPosInSwarm.get(i) - pos.get(i));
-                    speed.set(i, inertionPart + cognitionPart + socialPart);
+                    double templatePart = templateAcceleration * (template.get(i) - pos.get(i));
+                    speed.set(i, inertionPart + templatePart);
                 }
         );
         IntStream.range(0, dimensions).forEach(
@@ -85,8 +85,20 @@ public class Particle {
         return pos.get(index);
     }
 
+    public double getBestPos(int index) {
+        return bestPos.get(index);
+    }
+
+    public double getBestPosInSwarm(int index) {
+        return bestPosInSwarm.get(index);
+    }
+
     public void setBestXInSwarm(int index, double bestXInSwarm) {
         this.bestPosInSwarm.set(index, bestXInSwarm);
+    }
+
+    public void setTemplate(int index, double template) {
+        this.template.set(index, template);
     }
 
     public double getInertion() {

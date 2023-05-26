@@ -6,11 +6,13 @@ import pl.tiad.task1.backend.utils.StopType;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.IntStream;
 
 public class ParticleSwarmAlgorithm extends Algorithm {
     private final int numOfParticles;
     private final List<Particle> particles = new ArrayList<>();
+    private final Random r = new Random();
 
     public ParticleSwarmAlgorithm(StopType stopType, FunctionType functionType, int numOfParticles, double maxX,
                                   double minX, int dimensions, double inertion, double cognition, double social) {
@@ -51,6 +53,7 @@ public class ParticleSwarmAlgorithm extends Algorithm {
             }
             avgAdaptation += p.getAdaptation();
         }
+        updateTemplate();
         for (Particle p : particles) {
             Particle finalBestParticle = bestParticle;
             IntStream.range(0, dimensions)
@@ -59,5 +62,20 @@ public class ParticleSwarmAlgorithm extends Algorithm {
         iterations.add(i + 1);
         minPopulationValues.add(bestAdaptation);
         avgPopulationValues.add(avgAdaptation / numOfParticles);
+    }
+
+    public void updateTemplate() {
+        double rd = r.nextDouble(1);
+        double kd = Math.round(r.nextDouble(particles.size()));
+        Particle randomParticle = particles.get((int) kd);
+        for (Particle p : particles) {
+            if (p.getAdaptation() < randomParticle.getAdaptation()) {
+                IntStream.range(0, dimensions)
+                        .forEach(index -> p.setTemplate(index, rd * p.getBestPos(index) + rd * p.getBestPosInSwarm(index)));
+            } else {
+                IntStream.range(0, dimensions)
+                        .forEach(index -> p.setTemplate(index, randomParticle.getPos(index)));
+            }
+        }
     }
 }
