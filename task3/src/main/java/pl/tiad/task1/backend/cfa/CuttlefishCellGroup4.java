@@ -11,8 +11,10 @@ public class CuttlefishCellGroup4 extends CuttlefishCell {
 
     @Override
     public void moveGroup() {
+        double newMaxX = Math.min(bestCell.getAV() + ((maxX - minX) / 4), maxX);
+        double newMinX = Math.max(bestCell.getAV() - ((maxX - minX) / 4), minX);
         IntStream.range(0, dimensions).forEach(
-                i -> pos.set(i, r.nextDouble(maxX - minX) + minX)
+                i -> pos.set(i, r.nextDouble(newMaxX - newMinX) + newMinX)
         );
     }
 }
