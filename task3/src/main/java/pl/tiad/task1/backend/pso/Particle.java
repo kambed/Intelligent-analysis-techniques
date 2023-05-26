@@ -81,6 +81,14 @@ public class Particle {
         return adaptation;
     }
 
+    public double getTemplateAdaptation() {
+        return functionType.getFunction().apply(template);
+    }
+
+    public double getTemplateAdaptation(List<Double> newTemplate) {
+        return functionType.getFunction().apply(newTemplate);
+    }
+
     public double getPos(int index) {
         return pos.get(index);
     }

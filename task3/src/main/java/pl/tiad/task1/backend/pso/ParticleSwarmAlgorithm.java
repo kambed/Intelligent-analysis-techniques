@@ -66,15 +66,18 @@ public class ParticleSwarmAlgorithm extends Algorithm {
 
     public void updateTemplate() {
         double rd = r.nextDouble(1);
-        double kd = Math.round(r.nextDouble(particles.size()));
+        double kd = Math.floor(r.nextDouble(particles.size()));
         Particle randomParticle = particles.get((int) kd);
         for (Particle p : particles) {
+            List<Double> newTemplate;
             if (p.getAdaptation() < randomParticle.getAdaptation()) {
-                IntStream.range(0, dimensions)
-                        .forEach(index -> p.setTemplate(index, rd * p.getBestPos(index) + rd * p.getBestPosInSwarm(index)));
+                newTemplate = IntStream.range(0, dimensions).mapToDouble(i -> rd * p.getBestPos(i) + rd * p.getBestPosInSwarm(i)).boxed().toList();
             } else {
+                newTemplate = IntStream.range(0, dimensions).mapToDouble(randomParticle::getPos).boxed().toList();
+            }
+            if (p.getTemplateAdaptation() > p.getTemplateAdaptation(newTemplate)) {
                 IntStream.range(0, dimensions)
-                        .forEach(index -> p.setTemplate(index, randomParticle.getPos(index)));
+                        .forEach(index -> p.setTemplate(index, newTemplate.get(index)));
             }
         }
     }
