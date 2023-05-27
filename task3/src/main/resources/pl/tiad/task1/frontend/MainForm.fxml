@@ -68,9 +68,11 @@
 
                 <Label text="Social:" GridPane.columnIndex="0" GridPane.rowIndex="15" />
                 <TextField fx:id="socialTextField" GridPane.columnIndex="1" GridPane.rowIndex="15" />
+            <Label text="Mutation propability:" GridPane.rowIndex="16" />
+            <TextField fx:id="mutationTextField" GridPane.columnIndex="1" GridPane.rowIndex="16" />
 
-                <Label text="Number of runs:" GridPane.columnIndex="0" GridPane.rowIndex="16" />
-                <TextField fx:id="numberOFRunsTextField" GridPane.columnIndex="1" GridPane.rowIndex="16" />
+                <Label text="Number of runs:" GridPane.columnIndex="0" GridPane.rowIndex="17" />
+                <TextField fx:id="numberOFRunsTextField" GridPane.columnIndex="1" GridPane.rowIndex="17" />
             <columnConstraints>
                <ColumnConstraints />
                <ColumnConstraints />
@@ -92,6 +94,7 @@
                <RowConstraints />
                <RowConstraints />
                <RowConstraints />
+               <RowConstraints minHeight="10.0" prefHeight="30.0" />
                <RowConstraints />
             </rowConstraints>
             </GridPane>

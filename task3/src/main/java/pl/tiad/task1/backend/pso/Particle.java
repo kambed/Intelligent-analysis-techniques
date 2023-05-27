@@ -120,4 +120,12 @@ public class Particle {
     public double getSocial() {
         return social;
     }
+
+    public double getMaxX() {
+        return maxX;
+    }
+
+    public double getMinX() {
+        return minX;
+    }
 }
