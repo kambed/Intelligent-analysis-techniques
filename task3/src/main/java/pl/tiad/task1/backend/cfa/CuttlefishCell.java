@@ -56,8 +56,24 @@ public abstract class CuttlefishCell {
         return pos;
     }
 
+    public void setPos(List<Double> reflections, List<Double> visibilities) {
+        setPos(IntStream.range(0, dimensions).mapToDouble(i -> reflections.get(i) + visibilities.get(i)).boxed().toList());
+    }
+
+    public void setPos(List<Double> newPos) {
+        if (calculateNewAdaptation(newPos) < calculateNewAdaptation(pos)) {
+            IntStream.range(0, dimensions).forEach(
+                    i -> pos.set(i, newPos.get(i))
+            );
+        }
+    }
+
     public double calculateAdaptation() {
         return functionType.getFunction().apply(pos);
+    }
+
+    public double calculateNewAdaptation(List<Double> newPos) {
+        return functionType.getFunction().apply(newPos);
     }
 
     public CuttlefishCell getBestCell() {
@@ -79,4 +95,6 @@ public abstract class CuttlefishCell {
     public double getAV() {
         return pos.stream().mapToDouble(Double::doubleValue).average().orElseThrow();
     }
+
+
 }
