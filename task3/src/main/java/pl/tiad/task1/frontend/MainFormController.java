@@ -70,6 +70,8 @@ public class MainFormController implements Initializable {
     @FXML
     public TextField socialTextField;
     @FXML
+    public TextField mutationTextField;
+    @FXML
     public TextField numberOFRunsTextField;
     @FXML
     public TextArea consoleArea;
@@ -200,7 +202,8 @@ public class MainFormController implements Initializable {
                 Integer.parseInt(dimensionsTextField.getText()),
                 Double.parseDouble(inertionTextField.getText()),
                 Double.parseDouble(cognitionTextField.getText()),
-                Double.parseDouble(socialTextField.getText())
+                Double.parseDouble(socialTextField.getText()),
+                Double.parseDouble(mutationTextField.getText())
         );
     }
 

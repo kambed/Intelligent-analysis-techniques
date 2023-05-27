@@ -7,7 +7,7 @@ import java.util.stream.IntStream;
 public enum FunctionType {
     SPHERE(
             (List<Double> positions) -> positions.stream()
-                    .mapToDouble(FunctionType::pow2)
+                    .mapToDouble(i -> pow2(i))
                     .sum()
     ),
     F2(

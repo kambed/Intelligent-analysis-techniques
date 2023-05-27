@@ -7,18 +7,22 @@ import pl.tiad.task1.backend.utils.StopType;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class ParticleSwarmAlgorithm extends Algorithm {
     private final int numOfParticles;
+    private final double mutationProbability;
     private final List<Particle> particles = new ArrayList<>();
     private final Random r = new Random();
 
     public ParticleSwarmAlgorithm(StopType stopType, FunctionType functionType, int numOfParticles, double maxX,
-                                  double minX, int dimensions, double inertion, double cognition, double social) {
+                                  double minX, int dimensions, double inertion, double cognition, double social, double mutationProbability) {
         this.numOfParticles = numOfParticles;
         this.stopType = stopType;
         this.dimensions = dimensions;
+        this.mutationProbability = mutationProbability;
+
         double bestAdaptation = Double.MAX_VALUE;
         Particle bestParticle = null;
         for (int i = 0; i < numOfParticles; i++) {
@@ -71,10 +75,16 @@ public class ParticleSwarmAlgorithm extends Algorithm {
         for (Particle p : particles) {
             List<Double> newTemplate;
             if (p.getAdaptation() < randomParticle.getAdaptation()) {
-                newTemplate = IntStream.range(0, dimensions).mapToDouble(i -> rd * p.getBestPos(i) + rd * p.getBestPosInSwarm(i)).boxed().toList();
+                newTemplate = IntStream.range(0, dimensions).mapToDouble(i -> rd * p.getBestPos(i) + rd * p.getBestPosInSwarm(i)).boxed().collect(Collectors.toList());
             } else {
-                newTemplate = IntStream.range(0, dimensions).mapToDouble(randomParticle::getPos).boxed().toList();
+                newTemplate = IntStream.range(0, dimensions).mapToDouble(randomParticle::getPos).boxed().collect(Collectors.toList());
             }
+            IntStream.range(0, dimensions)
+                    .forEach(index -> {
+                        if (r.nextDouble(1) < mutationProbability) {
+                            newTemplate.set(index, r.nextDouble(p.getMaxX() - p.getMinX()) + p.getMinX());
+                        }
+                    });
             if (p.getTemplateAdaptation() > p.getTemplateAdaptation(newTemplate)) {
                 IntStream.range(0, dimensions)
                         .forEach(index -> p.setTemplate(index, newTemplate.get(index)));

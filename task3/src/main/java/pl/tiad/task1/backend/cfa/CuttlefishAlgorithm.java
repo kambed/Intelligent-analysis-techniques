@@ -13,6 +13,7 @@ public class CuttlefishAlgorithm extends Algorithm {
 
     private final int numOfParticles;
     private final List<CuttlefishCell> cells = new ArrayList<>();
+    private CuttlefishCell bestCell = null;
 
     public CuttlefishAlgorithm(StopType stopType, FunctionType functionType, int numOfParticles, double maxX,
                                double minX, int dimensions, double r1, double r2, double v1, double v2) {
@@ -42,18 +43,17 @@ public class CuttlefishAlgorithm extends Algorithm {
     protected void algorithmStep(int i) {
         for (CuttlefishCell c : cells) {
             c.move();
-            if (c.calculateAdaptation() < c.getBestCell().calculateAdaptation()) {
-                c.setBestCell(c);
-            }
         }
-        CuttlefishCell bestCell = cells.stream().min(Comparator.comparingDouble(CuttlefishCell::calculateAdaptation)).orElseThrow();
-        for (CuttlefishCell c : cells) {
-            c.setBestCell(bestCell);
+        CuttlefishCell newBestCell = cells.stream().min(Comparator.comparingDouble(CuttlefishCell::calculateAdaptation)).orElseThrow();
+        if (bestCell == null || newBestCell.calculateAdaptation() < bestCell.calculateAdaptation()) {
+            bestCell = newBestCell;
+            for (CuttlefishCell c : cells) {
+                c.setBestCell(bestCell);
+            }
+            globalBestAdaptation = bestCell.calculateAdaptation();
+            IntStream.range(0, dimensions).forEach(index -> globalBest.set(index, bestCell.getPos().get(index)));
         }
         double avgAdaptation = cells.stream().mapToDouble(CuttlefishCell::calculateAdaptation).average().orElseThrow();
-
-        globalBestAdaptation = bestCell.calculateAdaptation();
-        IntStream.range(0, dimensions).forEach(index -> globalBest.set(index, bestCell.getPos().get(index)));
 
         iterations.add(i + 1);
         minPopulationValues.add(bestCell.calculateAdaptation());

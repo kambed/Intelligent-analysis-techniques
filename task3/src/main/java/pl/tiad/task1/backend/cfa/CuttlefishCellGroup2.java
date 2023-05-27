@@ -12,10 +12,10 @@ public class CuttlefishCellGroup2 extends CuttlefishCell {
 
     @Override
     public void moveGroup() {
-        List<Double> visibilities = IntStream.range(0, dimensions).mapToDouble(i -> (bestCell.getPos().get(i) - pos.get(i)) * getV()).boxed().toList();
-        List<Double> reflections = bestCell.getPos().stream().map(pos -> pos * getR()).toList();
-        IntStream.range(0, dimensions).forEach(
-                i -> pos.set(i, reflections.get(i) + visibilities.get(i))
-        );
+        double R = getR();
+        double V = getV();
+        List<Double> visibilities = IntStream.range(0, dimensions).mapToDouble(i -> (bestCell.getPos().get(i) - pos.get(i)) * V).boxed().toList();
+        List<Double> reflections = bestCell.getPos().stream().map(pos -> pos * R).toList();
+        setPos(reflections, visibilities);
     }
 }
