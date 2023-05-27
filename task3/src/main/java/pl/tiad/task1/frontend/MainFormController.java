@@ -74,7 +74,9 @@ public class MainFormController implements Initializable {
     @FXML
     public TextField numberOFRunsTextField;
     @FXML
-    public TextArea consoleArea;
+    public TextArea consoleArea1;
+    @FXML
+    public TextArea consoleArea2;
     @FXML
     public VBox resultSection;
 
@@ -85,12 +87,14 @@ public class MainFormController implements Initializable {
     }
 
     public void start() {
-        start(createParticleSwarmAlgorithm(), psoChart1, psoChart2);
-        start(createCuttlefishAlgorithm(), deaChart1, deaChart2);
+        consoleArea1.clear();
+        consoleArea2.clear();
+        start(createParticleSwarmAlgorithm(), psoChart1, psoChart2, consoleArea1);
+        start(createCuttlefishAlgorithm(), deaChart1, deaChart2, consoleArea2);
         resultSection.setVisible(true);
     }
 
-    private void start(Algorithm algorithm, ImageView populationAvgChart, ImageView populationMinChart) {
+    private void start(Algorithm algorithm, ImageView populationAvgChart, ImageView populationMinChart, TextArea console) {
         int numberOfRuns = Integer.parseInt(numberOFRunsTextField.getText());
         List<Map<String, Double>> extremums = new ArrayList<>();
         List<List<Double>> avgPopulationValues = new ArrayList<>();
@@ -112,8 +116,7 @@ public class MainFormController implements Initializable {
                 .min(Comparator.comparingDouble(o -> o.get("Adaptation")))
                 .orElseThrow();
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("\n")
-                .append(algorithmName)
+        stringBuilder.append(algorithmName)
                 .append(" finished with best results:\n");
         stringBuilder.append("Lowest value in function: ")
                 .append(extremum.get("Adaptation"))
@@ -148,7 +151,7 @@ public class MainFormController implements Initializable {
                     .append("\n");
             i++;
         } while (extremum.get("X" + i) != null);
-        consoleArea.appendText(stringBuilder.toString());
+        console.appendText(stringBuilder.toString());
         try {
             int maxIterations = (int) iterations.stream().mapToDouble(List::size).max().orElse(0.0);
             List<Double> avgValues = Arrays.asList(new Double[maxIterations]);
@@ -188,7 +191,7 @@ public class MainFormController implements Initializable {
             );
             populationMinChart.setImage(new Image(new FileInputStream(populationMinChart.getId() + ".png")));
         } catch (IOException e) {
-            consoleArea.appendText("Error while generation " + algorithm.getClass().getSimpleName() + " charts. \n");
+            console.appendText("Error while generation " + algorithm.getClass().getSimpleName() + " charts. \n");
         }
     }
 
