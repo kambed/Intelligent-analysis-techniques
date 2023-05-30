@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.tiad.task1.frontend.MainFormController">
+    <padding>
+        <Insets bottom="10" left="10" right="10" top="10" />
+    </padding>
+    <HBox spacing="10">
+        <VBox spacing="10">
+            <GridPane hgap="10" vgap="10">
+                <Label styleClass="header" text="Both algorithm arguments:" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" />
+
+                <Label text="Stop condition:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <ComboBox fx:id="stopConditionComboBox" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                <Label text="Stop value:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                <TextField fx:id="stopValueTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                <Label text="Function:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                <ComboBox fx:id="functionComboBox" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+                <Label text="X range:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                <HBox alignment="BASELINE_CENTER" spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                    <TextField fx:id="minXTextField" />
+                    <Label text="-" />
+                    <TextField fx:id="maxXToTextField" />
+                </HBox>
+
+                <Label text="Dimensions:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                <TextField fx:id="dimensionsTextField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+
+                <Label text="Number of individuals:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+                <TextField fx:id="numberOfIndividualsTextField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+
+
+                <Label styleClass="header" text="Cuttlefish Algorithm specific arguments:" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="7" />
+            <Label text="Reflection r1:" GridPane.rowIndex="8" />
+            <TextField fx:id="r1FactorTextField" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <Label text="Reflection r2:" GridPane.rowIndex="9" />
+            <TextField fx:id="r2FactorTextField" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+
+                <Label text="Visibility v1:" GridPane.columnIndex="0" GridPane.rowIndex="10" />
+                <TextField fx:id="v1FactorTextField" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+
+                <Label text="Visibility v2:" GridPane.columnIndex="0" GridPane.rowIndex="11" />
+                <TextField fx:id="v2FactorTextField" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+
+
+                <Label styleClass="header" text="Particle Swarm Algorithm specific arguments:" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="12" />
+
+                <Label text="Inertion:" GridPane.columnIndex="0" GridPane.rowIndex="13" />
+                <TextField fx:id="inertionTextField" GridPane.columnIndex="1" GridPane.rowIndex="13" />
+
+                <Label text="Cognition:" GridPane.columnIndex="0" GridPane.rowIndex="14" />
+                <TextField fx:id="cognitionTextField" GridPane.columnIndex="1" GridPane.rowIndex="14" />
+
+                <Label text="Social:" GridPane.columnIndex="0" GridPane.rowIndex="15" />
+                <TextField fx:id="socialTextField" GridPane.columnIndex="1" GridPane.rowIndex="15" />
+            <Label text="Mutation propability:" GridPane.rowIndex="16" />
+            <TextField fx:id="mutationTextField" GridPane.columnIndex="1" GridPane.rowIndex="16" />
+
+                <Label text="Number of runs:" GridPane.columnIndex="0" GridPane.rowIndex="17" />
+                <TextField fx:id="numberOFRunsTextField" GridPane.columnIndex="1" GridPane.rowIndex="17" />
+            <columnConstraints>
+               <ColumnConstraints />
+               <ColumnConstraints />
+            </columnConstraints>
+            <rowConstraints>
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints minHeight="10.0" prefHeight="30.0" />
+               <RowConstraints minHeight="10.0" prefHeight="30.0" />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints minHeight="10.0" prefHeight="30.0" />
+               <RowConstraints />
+            </rowConstraints>
+            </GridPane>
+            <Button maxWidth="Infinity" onAction="#start" text="Start" />
+        </VBox>
+        <VBox spacing="10">
+            <VBox spacing="10" fx:id="resultSection" visible="false">
+                <Label styleClass="header" text="Particle Swarm Algorithm charts:" />
+                <HBox spacing="10">
+                    <ImageView fx:id="psoChart1" fitHeight="250" fitWidth="400" />
+                    <ImageView fx:id="psoChart2" fitHeight="250" fitWidth="400" />
+                </HBox>
+                <Label styleClass="header" text="Cuttlefish Algorithm charts:" />
+                <HBox spacing="10">
+                    <ImageView fx:id="deaChart1" fitHeight="250" fitWidth="400" />
+                    <ImageView fx:id="deaChart2" fitHeight="250" fitWidth="400" />
+                </HBox>
+            </VBox>
+        </VBox>
+    </HBox>
+    <Label styleClass="header" text="Console:" />
+    <HBox spacing="10">
+        <TextArea fx:id="consoleArea1" editable="false" wrapText="true" />
+        <TextArea fx:id="consoleArea2" editable="false" wrapText="true" />
+    </HBox>
+</VBox>
